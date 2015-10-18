@@ -41,9 +41,6 @@
 #import <sys/stat.h>
 #import <mach-o/dyld.h>
 
-#import <MrCoinFramework/MrCoinFramework.h>
-
-
 #define BALANCE_TIP NSLocalizedString(@"This is your bitcoin balance. Bitcoin is a currency. "\
                                        "The exchange rate changes with the market.", nil)
 #define BITS_TIP    NSLocalizedString(@"%@ is for 'bits'. %@ = 1 bitcoin.", nil)
@@ -396,20 +393,7 @@
     if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
         [[BRPeerManager sharedInstance] connect];
     }
-    
-    BRWalletManager *manager = [BRWalletManager sharedInstance];
-    // Setup public key
-    [[MrCoin settings] setWalletPublicKey:[[manager wallet] receiveAddress]];
-    // Setup private key
-    [[MrCoin settings] setWalletPrivateKey:[manager authPrivateKey]];
-    // Setup private key
-    [[MrCoin sharedController] setDelegate:self];
 }
-- (NSString*) requestSignatureFor:(NSString*)message privateKey:(NSString*)privateKey
-{
-    return privateKey;
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     self.didAppear = YES;
@@ -428,7 +412,7 @@
     }
 
     if ([UIApplication sharedApplication].protectedDataAvailable) [self protectedViewDidAppear:animated];
-    
+
     [super viewDidAppear:animated];
 }
 

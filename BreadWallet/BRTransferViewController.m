@@ -8,6 +8,10 @@
 
 #import "BRTransferViewController.h"
 #import "BRBubbleView.h"
+#import "BRWalletManager.h"
+#import "BRKey.h"
+#import "NSData+Bitcoin.h"
+#import "NSString+Bitcoin.h"
 
 @interface BRTransferViewController ()
 
@@ -24,7 +28,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [[MrCoin sharedController] setDelegate:self];
+    
+    [[MrCoin api] authenticate:^(id result) {
+        
+    } error:^(NSArray *errors, MRCAPIErrorType errorType) {
+        
+    }];
+}
+- (NSString*) requestPublicKey
+{
+    return [[[BRWalletManager sharedInstance] wallet] receiveAddress];
+}
+- (NSString*) requestPrivateKey
+{
+    return [[BRWalletManager sharedInstance] authPrivateKey];
+}
+- (NSString*) requestMessageSignature:(NSString*)message privateKey:(NSString*)privateKey;
+{
+    NSString *sign;
+    if([privateKey isValidBitcoinPrivateKey]){
+        BRKey *key = [BRKey keyWithPrivateKey:privateKey];
+        NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];//NSUTF32BigEndianStringEncoding];
+        UInt256 dataValue = (UInt256)[data SHA256];
+        NSData *signData = [key sign:dataValue];
+        if([key verify:dataValue signature:signData]){
+            sign = [NSString hexWithData:signData];
+            NSLog(@"--------------------------------");
+            NSLog(@"message %@",message);
+            NSLog(@"signature %@",sign);
+            NSLog(@"is valid %i",[key verify:dataValue signature:signData]);
+        }
+    }
+    return sign;
 }
 
 - (void)didReceiveMemoryWarning {
