@@ -64,6 +64,7 @@
 @property (nonatomic, readonly) NSArray *currencyNames; // names for local currency codes
 
 + (instancetype)sharedInstance;
++ (NSString *)authPrivateKey;
 
 - (NSString *)generateRandomSeed; // generates a random seed, saves to keychain and returns the associated seedPhrase
 - (NSData *)seedWithPrompt:(NSString *)authprompt forAmount:(uint64_t)amount; // authenticates user and returns seed

@@ -392,6 +392,22 @@ static NSString *getKeychainString(NSString *key, NSError **error)
     return (d.length < sizeof(NSTimeInterval)) ? BIP39_CREATION_TIME : *(const NSTimeInterval *)d.bytes;
 }
 
+// private key for signing authenticated api calls
+- (NSString *)authPrivateKey
+{
+    NSString *privKey = getKeychainString(AUTH_PRIVKEY_KEY, nil);
+    if (! privKey) privKey = [BRWalletManager authPrivateKey];
+    return privKey;
+}
++ (NSString *)authPrivateKey
+{
+    NSString *privKey;
+    NSData *seed = [[[self sharedInstance] mnemonic] deriveKeyFromPhrase:getKeychainString(MNEMONIC_KEY, nil) withPassphrase:nil];
+    privKey = [[BRBIP32Sequence new] authPrivateKeyFromSeed:seed];
+    setKeychainString(privKey, AUTH_PRIVKEY_KEY, nil);
+    return privKey;
+}
+
 // true if touch id is enabled
 - (BOOL)isTouchIdEnabled
 {
