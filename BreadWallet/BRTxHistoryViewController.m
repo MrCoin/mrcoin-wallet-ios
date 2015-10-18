@@ -34,6 +34,7 @@
 #import "NSString+Bitcoin.h"
 #import "NSData+Bitcoin.h"
 #import "BREventManager.h"
+#import <MrCoinFramework/MrCoinFramework.h>
 
 #define TRANSACTION_CELL_HEIGHT 75
 
@@ -407,7 +408,7 @@ static NSString *dateFormat(NSString *template)
             return 2;
 
         case 2:
-            return 1;
+            return 2;
     }
 
     return 0;
@@ -547,7 +548,11 @@ static NSString *dateFormat(NSString *template)
 
         case 2:
             cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
-            cell.textLabel.text = NSLocalizedString(@"settings", nil);
+            if(indexPath.row == 0){
+                cell.textLabel.text = NSLocalizedString(@"wallet settings", nil);
+            }else if(indexPath.row == 1){
+                cell.textLabel.text = NSLocalizedString(@"mrcoin settings", nil);
+            }
             break;
     }
     
@@ -663,9 +668,19 @@ static NSString *dateFormat(NSString *template)
             break;
 
         case 2: // settings
-            [BREventManager saveEvent:@"tx_history:settings"];
-            destinationController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
-            [self.navigationController pushViewController:destinationController animated:YES];
+            switch (indexPath.row) {
+                case 0: // settings
+                    [BREventManager saveEvent:@"tx_history:settings"];
+                    destinationController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+                    [self.navigationController pushViewController:destinationController animated:YES];
+                    break;
+                    
+                case 1: // mrcoin settings
+                    destinationController = [MrCoin viewController:@"Settings"];
+                    destinationController.title = NSLocalizedString(@"mrcoin settings", nil);
+                    [self.navigationController pushViewController:destinationController animated:YES];
+                    break;
+            }
             break;
     }
 }

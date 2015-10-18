@@ -26,6 +26,7 @@
 #import "BRRootViewController.h"
 #import "BRReceiveViewController.h"
 #import "BRSendViewController.h"
+#import "BRTransferViewController.h"
 #import "BRSettingsViewController.h"
 #import "BRAppDelegate.h"
 #import "BRBubbleView.h"
@@ -39,6 +40,9 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <sys/stat.h>
 #import <mach-o/dyld.h>
+
+#import <MrCoinFramework/MrCoinFramework.h>
+
 
 #define BALANCE_TIP NSLocalizedString(@"This is your bitcoin balance. Bitcoin is a currency. "\
                                        "The exchange rate changes with the market.", nil)
@@ -71,7 +75,10 @@
 @end
 
 @implementation BRRootViewController
-
+{
+    NSInteger currentPage;
+    NSInteger nextPage;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -95,7 +102,9 @@
     self.receiveViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ReceiveViewController"];
     self.sendViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SendViewController"];
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    self.transferViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TransferViewController"];
 
+    self.pageViewController.delegate = self;
     self.pageViewController.dataSource = self;
     [self.pageViewController setViewControllers:@[self.sendViewController]
      direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
@@ -387,6 +396,18 @@
     if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
         [[BRPeerManager sharedInstance] connect];
     }
+    
+    BRWalletManager *manager = [BRWalletManager sharedInstance];
+    // Setup public key
+    [[MrCoin settings] setWalletPublicKey:[[manager wallet] receiveAddress]];
+    // Setup private key
+    [[MrCoin settings] setWalletPrivateKey:[manager authPrivateKey]];
+    // Setup private key
+    [[MrCoin sharedController] setDelegate:self];
+}
+- (NSString*) requestSignatureFor:(NSString*)message privateKey:(NSString*)privateKey
+{
+    return privateKey;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -866,32 +887,57 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
 viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    return (viewController == self.receiveViewController) ? self.sendViewController : nil;
+    UIViewController* controller;
+    if(viewController == self.sendViewController)           controller = nil;
+    else if(viewController == self.receiveViewController)   controller = self.sendViewController;
+    else if(viewController == self.transferViewController)  controller = self.receiveViewController;
+    
+    [[controller view] layoutIfNeeded];
+    return controller;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
 viewControllerAfterViewController:(UIViewController *)viewController
 {
-    return (viewController == self.sendViewController) ? self.receiveViewController : nil;
+    UIViewController* controller;
+    if(viewController == self.sendViewController)           controller = self.receiveViewController;
+    else if(viewController == self.receiveViewController)   controller = self.transferViewController;
+    else if(viewController == self.transferViewController)  controller = nil;
+    
+    [[controller view] layoutIfNeeded];
+    return controller;
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
-    return (pageViewController.viewControllers.lastObject == self.receiveViewController) ? 1 : 0;
+    return currentPage;
 }
-
+-(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers
+{
+    UIViewController* controller = [pendingViewControllers firstObject];
+    if(controller == self.sendViewController)           nextPage = 0;
+    else if(controller == self.receiveViewController)   nextPage = 1;
+    else if(controller == self.transferViewController)  nextPage = 2;
+}
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    if(completed){
+        currentPage = nextPage;
+    }
+}
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat off = scrollView.contentOffset.x + (scrollView.contentInset.left < 0 ? scrollView.contentInset.left : 0);
+    CGFloat p = scrollView.frame.size.width*((scrollView.contentOffset.x/scrollView.frame.size.width)-1);
+    CGFloat offset = (scrollView.frame.size.width*currentPage)+p;
     
-    self.wallpaper.center = CGPointMake(self.wallpaper.frame.size.width/2 - PARALAX_RATIO*off, self.wallpaper.center.y);
+    self.wallpaper.center = CGPointMake(self.wallpaper.frame.size.width/2 - PARALAX_RATIO*offset, self.wallpaper.center.y);
 }
 
 #pragma mark - UIAlertViewDelegate
