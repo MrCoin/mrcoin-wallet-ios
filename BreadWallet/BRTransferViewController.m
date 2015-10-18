@@ -12,6 +12,7 @@
 #import "BRKey.h"
 #import "NSData+Bitcoin.h"
 #import "NSString+Bitcoin.h"
+#import "BRBIP32Sequence.h"
 
 @interface BRTransferViewController ()
 
@@ -25,24 +26,27 @@
 @end
 
 @implementation BRTransferViewController
-
+{
+    NSString *publicKey;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [[MrCoin sharedController] setDelegate:self];
     
     [[MrCoin api] authenticate:^(id result) {
-        
+        NSLog(@"result %@",result);
     } error:^(NSArray *errors, MRCAPIErrorType errorType) {
-        
+        NSLog(@"errors %@",errors);
     }];
 }
 - (NSString*) requestPublicKey
 {
-    return [[[BRWalletManager sharedInstance] wallet] receiveAddress];
+    return publicKey;
 }
 - (NSString*) requestPrivateKey
 {
+    publicKey = nil;
     return [[BRWalletManager sharedInstance] authPrivateKey];
 }
 - (NSString*) requestMessageSignature:(NSString*)message privateKey:(NSString*)privateKey;
@@ -50,15 +54,12 @@
     NSString *sign;
     if([privateKey isValidBitcoinPrivateKey]){
         BRKey *key = [BRKey keyWithPrivateKey:privateKey];
-        NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];//NSUTF32BigEndianStringEncoding];
-        UInt256 dataValue = (UInt256)[data SHA256];
-        NSData *signData = [key sign:dataValue];
-        if([key verify:dataValue signature:signData]){
+        publicKey = [NSString hexWithData:[key publicKey]];
+        NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSData *signData = [key sign:[data SHA256]];
+        if([[BRKey keyWithPublicKey:[key publicKey]] verify:[data SHA256] signature:signData]){
             sign = [NSString hexWithData:signData];
-            NSLog(@"--------------------------------");
-            NSLog(@"message %@",message);
-            NSLog(@"signature %@",sign);
-            NSLog(@"is valid %i",[key verify:dataValue signature:signData]);
         }
     }
     return sign;
