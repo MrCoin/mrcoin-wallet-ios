@@ -9,7 +9,7 @@
 "4w7-k8-9wY.normalTitle" = "recover wallet";
 
 /* Class = "UILabel"; text = "breadwallet.com\n"; ObjectID = "5OA-tB-Exg"; */
-"5OA-tB-Exg.text" = "breadwallet.com\n";
+"5OA-tB-Exg.text" = "mrcoin.eu";
 
 /* Class = "UILabel"; text = "local currency"; ObjectID = "8e2-ar-Ehc"; */
 "8e2-ar-Ehc.text" = "local currency";
@@ -180,7 +180,7 @@
 "jGg-9z-XEe.normalTitle" = "3";
 
 /* Class = "UILabel"; text = "send money:"; ObjectID = "l5l-JR-LKA"; */
-"l5l-JR-LKA.text" = "send money:";
+"l5l-JR-LKA.text" = "Send money";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "mpz-vn-jZ1"; */
 "mpz-vn-jZ1.text" = "Title";
@@ -201,7 +201,7 @@
 "qNV-Ka-14n.text" = "($1,000.00)";
 
 /* Class = "UILabel"; text = "receive money:"; ObjectID = "qel-3J-2VC"; */
-"qel-3J-2VC.text" = "receive money:";
+"qel-3J-2VC.text" = "Receive money";
 
 /* Class = "UITableViewController"; title = "transaction details"; ObjectID = "s4T-yd-VfX"; */
 "s4T-yd-VfX.title" = "transaction details";
@@ -219,7 +219,7 @@
 "ue1-2S-fEr.text" = "ƀ 1,000,000";
 
 /* Class = "UILabel"; text = "breadwallet v%ver%%net%\ncopyright © 2015 Aaron Voisine\n\nthis app is open source"; ObjectID = "uvz-hk-Nr4"; */
-"uvz-hk-Nr4.text" = "breadwallet v%ver%%net%\ncopyright © 2015 Aaron Voisine\n\nthis app is open source";
+"uvz-hk-Nr4.text" = "MrCoin Wallet\nv%ver%%net%";
 
 /* Class = "UILabel"; text = "start a new wallet by generating a wallet recovery phrase"; ObjectID = "wDZ-DN-szv"; */
 "wDZ-DN-szv.text" = "start a new wallet by generating a wallet recovery phrase";

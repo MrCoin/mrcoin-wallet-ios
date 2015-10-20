@@ -30,6 +30,7 @@
 #import "BREventManager.h"
 #include <asl.h>
 
+#import <MrCoinFramework/MrCoinFramework.h>
 
 @interface BRSettingsViewController ()
 
@@ -200,9 +201,9 @@
     if (tableView == self.selectorController.tableView) return self.selectorOptions.count;
     
     switch (section) {
-        case 0: return 2;
-        case 1: return (self.touchId) ? 2 : 1;
-        case 2: return 2;
+        case 0: return ([[MrCoin settings] isConfigured]) ? 4 : 2;
+        case 1: return 2;
+        case 2: return (self.touchId) ? ([[MrCoin settings] isConfigured]?4:3 ) : ([[MrCoin settings] isConfigured]?3:2 );
     }
     
     return 0;
@@ -230,6 +231,46 @@
     
     switch (indexPath.section) {
         case 0:
+            switch (indexPath.row) {
+                case 0:
+                    if([[MrCoin settings] isConfigured]){
+                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
+                        cell.textLabel.text = NSLocalizedString(@"phone", nil);
+                        cell.detailTextLabel.text = [[MrCoin settings] userPhone];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }else{
+                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
+                        cell.textLabel.text = NSLocalizedString(@"setup quicktransfer", nil);
+                    }
+                    break;
+                case 1:
+                    if([[MrCoin settings] isConfigured]){
+                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
+                        cell.textLabel.text = NSLocalizedString(@"email", nil);
+                        cell.detailTextLabel.text = [[MrCoin settings] userEmail];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }else{
+                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
+                        cell.detailTextLabel.text = manager.localCurrencyCode;
+                    }
+                    break;
+                case 2:
+                    cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
+                    cell.textLabel.text = NSLocalizedString(@"quicktransfer currency", nil);
+                    cell.detailTextLabel.text = [[MrCoin settings] sourceCurrency];
+                    break;
+                case 3:
+                    cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
+                    cell.detailTextLabel.text = manager.localCurrencyCode;
+                    break;
+            }
+            //phone
+            //email
+            //currency
+            //reset quicktransfer
+            break;
+            
+        case 1:
             cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
             
             switch (indexPath.row) {
@@ -244,35 +285,39 @@
             
             break;
             
-        case 1:
+        case 2:
             switch (indexPath.row) {
                 case 0:
-                    cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
-                    cell.detailTextLabel.text = manager.localCurrencyCode;
-                    break;
-            
-                case 1:
                     if (self.touchId) {
                         cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
                         cell.textLabel.text = NSLocalizedString(@"touch id limit", nil);
                         cell.detailTextLabel.text = [manager stringForAmount:manager.spendingLimit];
-                        break;
+                    }else{
+                        cell = [tableView dequeueReusableCellWithIdentifier:actionIdent];
+                        cell.textLabel.text = NSLocalizedString(@"change passcode", nil);
                     }
-                    // passthrough if ! self.touchId
-            }
-            
-            break;
-            
-        case 2:
-            switch (indexPath.row) {
-                case 0:
-                    cell = [tableView dequeueReusableCellWithIdentifier:actionIdent];
-                    cell.textLabel.text = NSLocalizedString(@"change passcode", nil);
                     break;
-                    
                 case 1:
-                    cell = [tableView dequeueReusableCellWithIdentifier:restoreIdent];
+                    if (self.touchId) {
+                        cell = [tableView dequeueReusableCellWithIdentifier:actionIdent];
+                        cell.textLabel.text = NSLocalizedString(@"change passcode", nil);
+                    }else{
+                        cell = [tableView dequeueReusableCellWithIdentifier:restoreIdent];
+                    }
                     break;
+                case 2:
+                    if (self.touchId) {
+                        cell = [tableView dequeueReusableCellWithIdentifier:restoreIdent];
+                    }else{
+                        cell = [tableView dequeueReusableCellWithIdentifier:restoreIdent];
+                        cell.textLabel.text = NSLocalizedString(@"reset quicktransfer", nil);
+                    }
+                    break;
+                case 3:
+                    cell = [tableView dequeueReusableCellWithIdentifier:restoreIdent];
+                    cell.textLabel.text = NSLocalizedString(@"reset quicktransfer", nil);
+                    break;
+
             }
     }
 
@@ -454,6 +499,29 @@
     switch (indexPath.section) {
         case 0:
             switch (indexPath.row) {
+                case 0: // local currency
+                    if(![[MrCoin settings] isConfigured]){
+                        [[MrCoin rootController] showForm:self];
+                    }
+                    break;
+                    
+                case 1:
+                    if(![[MrCoin settings] isConfigured]){
+                        [self showCurrencySelector];
+                    }
+                    break;
+                case 2:
+                    [self.navigationController pushViewController:[MrCoin viewController:@"CurrencySettings"] animated:YES];
+                    break;
+                case 3:
+                    [self showCurrencySelector];
+                    break;
+            }
+            
+            break;
+
+        case 1:
+            switch (indexPath.row) {
                 case 0: // about
                     [self showAbout];
                     break;
@@ -465,34 +533,36 @@
             
             break;
             
-        case 1:
-            switch (indexPath.row) {
-                case 0: // local currency
-                    [self showCurrencySelector];
-                    
-                    break;
-                    
-                case 1: // touch id spending limit
-                    if (self.touchId) {
-                        [self performSelector:@selector(touchIdLimit:) withObject:nil afterDelay:0.0];
-                        break;
-                    }
-                    // passthrough if ! self.touchId
-            }
-            
-            break;
-            
         case 2:
             switch (indexPath.row) {
                 case 0: // change passcode
-                    [BREventManager saveEvent:@"settings:change_pin"];
-                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                    [manager performSelector:@selector(setPin) withObject:nil afterDelay:0.0];
+                    if (self.touchId) {
+                        [self performSelector:@selector(touchIdLimit:) withObject:nil afterDelay:0.0];
+                    }else{
+                        [BREventManager saveEvent:@"settings:change_pin"];
+                        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                        [manager performSelector:@selector(setPin) withObject:nil afterDelay:0.0];
+                    }
+                    break;
+                case 1:
+                    if (self.touchId) {
+                        [BREventManager saveEvent:@"settings:change_pin"];
+                        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                        [manager performSelector:@selector(setPin) withObject:nil afterDelay:0.0];
+                    }else{
+                        [BREventManager saveEvent:@"settings:recover"];
+                    }
                     break;
 
-                case 1: // start/recover another wallet (handled by storyboard)
+                case 2: // start/recover another wallet (handled by storyboard)
                     [BREventManager saveEvent:@"settings:recover"];
                     break;
+                case 3:
+                    [[MrCoin settings] resetSettings];
+                    [self.tableView reloadData];
+                    [[MrCoin rootController] showForm:self];
+                    break;
+
             }
             
             break;
