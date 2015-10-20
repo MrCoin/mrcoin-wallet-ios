@@ -12,7 +12,6 @@
 		220460521BA0B93200D07B61 /* BREventConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 220460511BA0B93200D07B61 /* BREventConfirmView.xib */; };
 		220460551BA0BEEE00D07B61 /* BREventConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220460541BA0BEEE00D07B61 /* BREventConfirmView.m */; };
 		26AEE4C91BD385BB00C32E23 /* BRTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AEE4C81BD385BB00C32E23 /* BRTransferViewController.m */; settings = {ASSET_TAGS = (); }; };
-		26BAEBC61BD4498200129DC1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26BAEBC51BD4498200129DC1 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		26BDBBCF1BD30D770088D073 /* MrCoin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26BDBBC81BD30D5C0088D073 /* MrCoin.bundle */; };
 		26BDBBD01BD30D7C0088D073 /* MrCoinFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BDBBCA1BD30D5C0088D073 /* MrCoinFramework.framework */; };
 		751B2B5C1B68911700EA87FB /* BRTxHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751B2B5B1B68911700EA87FB /* BRTxHistoryViewController.m */; };
@@ -156,7 +155,6 @@
 		220460541BA0BEEE00D07B61 /* BREventConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREventConfirmView.m; sourceTree = "<group>"; };
 		26AEE4C71BD385BB00C32E23 /* BRTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTransferViewController.h; sourceTree = "<group>"; };
 		26AEE4C81BD385BB00C32E23 /* BRTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTransferViewController.m; sourceTree = "<group>"; };
-		26BAEBC51BD4498200129DC1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		26BDBBBD1BD30D5C0088D073 /* MrCoin iOS SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "MrCoin iOS SDK.xcodeproj"; path = "../../mrcoin-sdk-ios/framework/MrCoin iOS SDK.xcodeproj"; sourceTree = "<group>"; };
 		7509C10C1AF3076000D03FD5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		7509C10E1AF3076100D03FD5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -615,7 +613,6 @@
 				75D5F3D0191EC270004AB296 /* BRAppDelegate.h */,
 				75D5F3D1191EC270004AB296 /* BRAppDelegate.m */,
 				BA4EECDF1B351AE200D443A3 /* BRAppGroupConstants.h */,
-				26BAEBC51BD4498200129DC1 /* Images.xcassets */,
 				75D5F3DF191EC270004AB296 /* MrCoinImages.xcassets */,
 				75D5F3DC191EC270004AB296 /* Main.storyboard */,
 				752E2898192349CE00DB5A3C /* BreadWallet.xcdatamodeld */,
@@ -876,7 +873,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26BAEBC61BD4498200129DC1 /* Images.xcassets in Resources */,
 				75D5F3E0191EC270004AB296 /* MrCoinImages.xcassets in Resources */,
 				757E09991ADB8EEB006FD352 /* Localizable.strings in Resources */,
 				75C0E3BF1B1BA294007BC531 /* BIP39Words.plist in Resources */,
