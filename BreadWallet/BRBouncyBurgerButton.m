@@ -45,7 +45,7 @@
     self.bar2 = [[UIView alloc] initWithFrame:CGRectMake(x - BAR_WIDTH/2.0, y, BAR_WIDTH, BAR_HEIGHT)];
     self.bar3 = [[UIView alloc] initWithFrame:CGRectMake(x - BAR_WIDTH/2.0, y + BAR_SPACING, BAR_WIDTH, BAR_HEIGHT)];
     self.bar1.userInteractionEnabled = self.bar2.userInteractionEnabled = self.bar3.userInteractionEnabled = NO;
-    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.currentTitleColor;
+    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.tintColor;
     [self addSubview:self.bar1];
     [self addSubview:self.bar2];
     [self addSubview:self.bar3];
@@ -63,7 +63,11 @@
     if (! (self = [super initWithFrame:frame])) return nil;
     return [self customInit];
 }
+-(void)awakeFromNib
+{
+    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.tintColor;
 
+}
 - (void)setX:(BOOL)x
 {
     [self setX:x completion:nil];
@@ -91,25 +95,25 @@
 - (void)setTitleColor:(UIColor *)color forState:(UIControlState)state
 {
     [super setTitleColor:color forState:state];
-    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.currentTitleColor;
+    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.tintColor;
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
     super.highlighted = highlighted;
-    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.currentTitleColor;
+    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.tintColor;
 }
 
 - (void)setEnabled:(BOOL)enabled
 {
     super.enabled = enabled;
-    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.currentTitleColor;
+    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.tintColor;
 }
 
 - (void)setSelected:(BOOL)selected
 {
     super.selected = selected;
-    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.currentTitleColor;
+    self.bar1.backgroundColor = self.bar2.backgroundColor = self.bar3.backgroundColor = self.tintColor;
 }
 
 - (CGSize)intrinsicContentSize
