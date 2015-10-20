@@ -24,14 +24,17 @@
 //  THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
+//#import <MrCoinFramework/MrCoinFramework.h>
 
 #define PARALAX_RATIO    0.25
 
 @class BRReceiveViewController, BRSendViewController,BRTransferViewController;
+@protocol MrCoinDelegate;
 
 @interface BRRootViewController : UIViewController <UIAlertViewDelegate, UIActionSheetDelegate,
 UIPageViewControllerDataSource, UIScrollViewDelegate, UINavigationControllerDelegate,
-UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIPageViewControllerDelegate>
+UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIPageViewControllerDelegate,MrCoinDelegate,MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet BRReceiveViewController *receiveViewController;
 @property (nonatomic, strong) IBOutlet BRSendViewController *sendViewController;

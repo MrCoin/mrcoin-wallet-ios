@@ -241,7 +241,7 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
 //    CKDpriv(&secret, &chain, 1 | BIP32_HARD);
 //    CKDpriv(&secret, &chain, 0);
     
-    NSMutableData *privKey = [NSMutableData secureData];//secureDataWithCapacity:34];
+    NSMutableData *privKey = [NSMutableData secureDataWithCapacity:34];
 
     [privKey appendBytes:&version length:1];
     [privKey appendBytes:&secret length:sizeof(secret)];

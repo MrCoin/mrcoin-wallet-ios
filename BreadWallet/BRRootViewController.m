@@ -41,6 +41,14 @@
 #import <sys/stat.h>
 #import <mach-o/dyld.h>
 
+// MrCoin Delegate deps
+#import "BRWalletManager.h"
+#import "BRKey.h"
+#import "NSData+Bitcoin.h"
+#import "NSString+Bitcoin.h"
+#import "BRBIP32Sequence.h"
+
+
 #define BALANCE_TIP NSLocalizedString(@"This is your bitcoin balance. Bitcoin is a currency. "\
                                        "The exchange rate changes with the market.", nil)
 #define BITS_TIP    NSLocalizedString(@"%@ is for 'bits'. %@ = 1 bitcoin.", nil)
@@ -75,7 +83,10 @@
 {
     NSInteger currentPage;
     NSInteger nextPage;
+    
+    NSString* publicKey; // for MrCoin SDK
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -100,6 +111,7 @@
     self.sendViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SendViewController"];
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     self.transferViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TransferViewController"];
+    [self setupMrCoin];
 
     self.pageViewController.delegate = self;
     self.pageViewController.dataSource = self;
@@ -1118,6 +1130,70 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
     return self;
+}
+#pragma mark - MrCoin Delegate
+- (void) setupMrCoin
+{
+
+    MrCoin *mr = [MrCoin sharedController];
+    MRCSettings *set = [mr settings];
+    //
+    [mr setRootController:self.transferViewController];
+    [mr setDelegate:self];
+    [set setFormBackgroundColor:self.view.backgroundColor];
+    [set setFormBackgroundImage:[UIImage imageNamed:@"wallpaper-default"]];
+    
+    [mr setNeedsAcceptTerms:NO];
+}
+- (NSString*) requestPublicKey
+{
+    return publicKey;
+}
+- (NSString*) requestPrivateKey
+{
+    publicKey = nil;
+    return [[BRWalletManager sharedInstance] authPrivateKey];
+}
+- (NSString*) requestMessageSignature:(NSString*)message privateKey:(NSString*)privateKey;
+{
+    NSString *sign;
+    if([privateKey isValidBitcoinPrivateKey]){
+        BRKey *key = [BRKey keyWithPrivateKey:privateKey];
+        publicKey = [NSString hexWithData:[key publicKey]];
+        NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+        
+        NSData *signData = [key sign:[data SHA256]];
+        if([[BRKey keyWithPublicKey:[key publicKey]] verify:[data SHA256] signature:signData]){
+            sign = [NSString hexWithData:signData];
+        }
+        //        NSLog(@"message: %@",message);
+        //        NSLog(@"privateKey: %@",privateKey);
+    }
+    return sign;
+}
+- (NSString*) requestDestinationAddress
+{
+    return [[[BRWalletManager sharedInstance] wallet] receiveAddress];
+}
+- (void)sendMail:(NSString *)to subject:(NSString *)subject
+{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *composeController = [MFMailComposeViewController new];
+        composeController.subject = subject;
+        [composeController setToRecipients:@[to]];
+        composeController.mailComposeDelegate = self;
+        [self.navigationController presentViewController:composeController animated:YES completion:nil];
+        composeController.view.backgroundColor
+        = [UIColor colorWithPatternImage:[UIImage imageNamed:@"wallpaper-default"]];
+    }
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

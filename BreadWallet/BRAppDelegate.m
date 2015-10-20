@@ -27,6 +27,7 @@
 #import "BRPeerManager.h"
 #import "BRWalletManager.h"
 #import "BREventManager.h"
+#import <MrCoinFramework/MrCoinFramework.h>
 
 #if BITCOIN_TESTNET
 #pragma message "testnet build"
@@ -61,6 +62,12 @@
         }
     }
     
+    MrCoin *mr = [MrCoin sharedController];
+    MRCSettings *set = [mr settings];
+    [set setUserEmail:@"test@mail.hu"];
+    [set setUserPhone:@"+36307086085"];
+    [set setSourceCurrency:@"EUR"];
+
     // start the event manager
     [[BREventManager sharedEventManager] up];
     

@@ -7,9 +7,8 @@
 //
 
 #import <MrCoin/MrCoin.h>
-#import <MrCoinFramework/MrCoinFramework.h>
 
 @interface BRTransferViewController : MrCoinViewController <UINavigationControllerDelegate,
-UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning,MrCoinDelegate>
+UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
 @end
