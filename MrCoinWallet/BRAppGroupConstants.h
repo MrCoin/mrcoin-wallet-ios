@@ -1,8 +1,8 @@
 //
-//  BRRootViewController.h
+//  BRAppGroupConstants.h
 //  BreadWallet
 //
-//  Created by Aaron Voisine on 9/15/13.
+//  Created by Henry Tsai on 6/13/15.
 //  Copyright (c) 2013 Aaron Voisine <voisine@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,28 +23,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h>
-//#import <MrCoinFramework/MrCoinFramework.h>
-
-#define PARALAX_RATIO    0.25
-
-@class BRReceiveViewController, BRSendViewController,BRTransferViewController;
-@protocol MrCoinDelegate;
-
-@interface BRRootViewController : UIViewController <UIAlertViewDelegate, UIActionSheetDelegate,
-UIPageViewControllerDataSource, UIScrollViewDelegate, UINavigationControllerDelegate,
-UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIPageViewControllerDelegate,MrCoinDelegate,MFMailComposeViewControllerDelegate>
-
-@property (nonatomic, strong) IBOutlet BRReceiveViewController *receiveViewController;
-@property (nonatomic, strong) IBOutlet BRSendViewController *sendViewController;
-@property (nonatomic, strong) IBOutlet BRTransferViewController *transferViewController;
-@property (nonatomic, strong) IBOutlet UIPageViewController *pageViewController;
-
-- (IBAction)tip:(id)sender;
-
-- (void)startActivityWithTimeout:(NSTimeInterval)timeout;
-- (void)stopActivityWithSuccess:(BOOL)success;
-- (void)ping;
-
-@end
+#define APP_GROUP_ID                  @"group.com.mrcoin.wallet"
+#define APP_GROUP_REQUEST_DATA_KEY    @"kBRSharedContainerDataWalletRequestDataKey"
+#define APP_GROUP_RECEIVE_ADDRESS_KEY @"kBRSharedContainerDataWalletReceiveAddressKey"

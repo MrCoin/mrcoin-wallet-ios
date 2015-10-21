@@ -64,9 +64,7 @@
     
     MrCoin *mr = [MrCoin sharedController];
     MRCSettings *set = [mr settings];
-    [set setUserEmail:@"test@mail.hu"];
-    [set setUserPhone:@"+36307086085"];
-    [set setSourceCurrency:@"EUR"];
+    [set setResellerKey:@""];
 
     // start the event manager
     [[BREventManager sharedEventManager] up];

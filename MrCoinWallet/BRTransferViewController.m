@@ -15,8 +15,6 @@
 @property (nonatomic, assign) BOOL showTips;
 
 - (IBAction)tip:(id)sender;
-- (IBAction)help:(id)sender;
-- (IBAction)serviceProvider:(id)sender;
 
 @end
 
@@ -40,6 +38,8 @@
 - (IBAction)tip:(id)sender
 {
 }
+
+
 - (BOOL)nextTip
 {
     if (self.tipView.alpha < 0.5) return [(id)self.parentViewController.parentViewController nextTip];

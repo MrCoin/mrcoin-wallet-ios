@@ -408,7 +408,7 @@ static NSString *dateFormat(NSString *template)
             return 2;
 
         case 2:
-            return 4;
+            return 2;
     }
 
     return 0;
@@ -555,13 +555,7 @@ static NSString *dateFormat(NSString *template)
             if(indexPath.row == 0){
                 cell.textLabel.text = NSLocalizedString(@"settings", nil);
             }else if(indexPath.row == 1){
-                cell.textLabel.text = NSLocalizedString(@"support", nil);
-            }else if(indexPath.row == 2){
-                cell.textLabel.text = NSLocalizedString(@"website", nil);
-            }else if(indexPath.row == 3){
                 cell.textLabel.text = NSLocalizedString(@"terms of service", nil);
-            }else if(indexPath.row == 4){
-                cell.textLabel.text = NSLocalizedString(@"terms of service (short)", nil);
             }
             break;
     }
@@ -683,31 +677,8 @@ static NSString *dateFormat(NSString *template)
                     destinationController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
                     [self.navigationController pushViewController:destinationController animated:YES];
                     break;
-                    /*
-                     if(indexPath.row == 0){
-                     cell.textLabel.text = NSLocalizedString(@"settings", nil);
-                     }else if(indexPath.row == 1){
-                     cell.textLabel.text = NSLocalizedString(@"support", nil);
-                     }else if(indexPath.row == 2){
-                     cell.textLabel.text = NSLocalizedString(@"website", nil);
-                     }else if(indexPath.row == 3){
-                     cell.textLabel.text = NSLocalizedString(@"terms of service", nil);
-                     }else if(indexPath.row == 4){
-                     cell.textLabel.text = NSLocalizedString(@"terms of service (short)", nil);
-                     }
-*/
                 case 1: // support
-                    [self.navigationController pushViewController:[MrCoin documentViewController:MrCoinDocumentSupport] animated:YES];
-                    break;
-                case 2: // website
-                    [[MrCoin sharedController] openURL:[NSURL URLWithString:@"http://www.mrcoin.eu"]];
-                    break;
-                case 3: // terms of service
-                    [self.navigationController pushViewController:[MrCoin documentViewController:MrCoinDocumentTerms] animated:YES];
-                    break;
-                case 4: // terms of service (short)
                     [self.navigationController pushViewController:[MrCoin documentViewController:MrCoinDocumentShortTerms] animated:YES];
-                    break;
             }
             break;
     }

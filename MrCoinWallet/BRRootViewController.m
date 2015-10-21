@@ -1143,7 +1143,7 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
     [set setFormBackgroundColor:self.view.backgroundColor];
     [set setFormBackgroundImage:[UIImage imageNamed:@"wallpaper-default"]];
     
-    [mr setNeedsAcceptTerms:NO];
+//    [mr setNeedsAcceptTerms:NO];
 }
 - (NSString*) requestPublicKey
 {
