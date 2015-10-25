@@ -62,10 +62,6 @@
         }
     }
     
-    MrCoin *mr = [MrCoin sharedController];
-    MRCSettings *set = [mr settings];
-    [set setResellerKey:@""];
-
     // start the event manager
     [[BREventManager sharedEventManager] up];
     
