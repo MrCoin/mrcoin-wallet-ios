@@ -36,6 +36,9 @@
 - (NSString *)privateKey:(unsigned)n internal:(BOOL)internal fromSeed:(NSData *)seed;
 - (NSArray *)privateKeys:(NSArray *)n internal:(BOOL)internal fromSeed:(NSData *)seed;
 
+- (NSData *)authPublicKeyFromSeed:(NSData *)seed slip13:(NSData*)slip13;
+- (NSString *)authPrivateKeyFromSeed:(NSData *)seed slip13:(NSData*)slip13;
+
 - (NSString *)serializedPrivateMasterFromSeed:(NSData *)seed;
 - (NSString *)serializedMasterPublicKey:(NSData *)masterPublicKey;
 

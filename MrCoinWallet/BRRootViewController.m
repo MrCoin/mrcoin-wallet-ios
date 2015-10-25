@@ -1137,12 +1137,15 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
 
     MrCoin *mr = [MrCoin sharedController];
     MRCSettings *set = [mr settings];
+    [set setResellerKey:@""];
+
     //
     [mr setRootController:self.transferViewController];
     [mr setDelegate:self];
     [set setFormBackgroundColor:self.view.backgroundColor];
     [set setFormBackgroundImage:[UIImage imageNamed:@"wallpaper-default"]];
     
+    [MrCoin checkUserDetails];
 //    [mr setNeedsAcceptTerms:NO];
 }
 - (NSString*) requestPublicKey
@@ -1152,7 +1155,9 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
 - (NSString*) requestPrivateKey
 {
     publicKey = nil;
-    return [[BRWalletManager sharedInstance] authPrivateKey];
+    
+    NSData *slip13 = [[MrCoin api] slip13Path:0x00000000 uri:@"https://www.mrcoin.eu/callback/bitid"];
+    return [BRWalletManager authPrivateKeySLIP13:slip13];
 }
 - (NSString*) requestMessageSignature:(NSString*)message privateKey:(NSString*)privateKey;
 {
@@ -1166,8 +1171,6 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
         if([[BRKey keyWithPublicKey:[key publicKey]] verify:[data SHA256] signature:signData]){
             sign = [NSString hexWithData:signData];
         }
-        //        NSLog(@"message: %@",message);
-        //        NSLog(@"privateKey: %@",privateKey);
     }
     return sign;
 }

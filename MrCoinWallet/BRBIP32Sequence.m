@@ -211,12 +211,11 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
 
 #pragma mark - HDWallet Path
 
-- (NSData *)authPublicKeyFromSeed:(NSData *)seed
+- (NSData *)authPublicKeyFromSeed:(NSData *)seed slip13:(NSData*)slip13
 {
-    return [BRKey keyWithPrivateKey:[self authPrivateKeyFromSeed:seed]].publicKey;
+    return [BRKey keyWithPrivateKey:[self authPrivateKeyFromSeed:seed slip13:slip13]].publicKey;
 }
-
-- (NSString *)authPrivateKeyFromSeed:(NSData *)seed
+- (NSString *)authPrivateKeyFromSeed:(NSData *)seed slip13:(NSData*)slip13
 {
     if (! seed) return nil;
     
@@ -231,15 +230,25 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
     version = BITCOIN_PRIVKEY_TEST;
 #endif
     
-    // path m/1H/0 (same as copay uses for bitauth)
-    CKDpriv(&secret, &chain, 13 | BIP32_HARD);
-    CKDpriv(&secret, &chain, 0x252d3537 | BIP32_HARD);
-    CKDpriv(&secret, &chain, 0x8c7cac9e | BIP32_HARD);
-    CKDpriv(&secret, &chain, 0xa4faaac6 | BIP32_HARD);
-    CKDpriv(&secret, &chain, 0xb4a6f1f3 | BIP32_HARD);
-
-//    CKDpriv(&secret, &chain, 1 | BIP32_HARD);
-//    CKDpriv(&secret, &chain, 0);
+    if(slip13 != nil){
+        int32_t I,A,B,C,D;
+        [slip13 getBytes:&I range:NSMakeRange(0, 4)];
+        [slip13 getBytes:&A range:NSMakeRange(4, 4)];
+        [slip13 getBytes:&B range:NSMakeRange(8, 4)];
+        [slip13 getBytes:&C range:NSMakeRange(12, 4)];
+        [slip13 getBytes:&D range:NSMakeRange(16, 4)];
+        
+        CKDpriv(&secret, &chain, I);
+        CKDpriv(&secret, &chain, A);
+        CKDpriv(&secret, &chain, B);
+        CKDpriv(&secret, &chain, C);
+        CKDpriv(&secret, &chain, D);
+    }else{
+//        path m/1H/0 (same as copay uses for bitauth)
+        CKDpriv(&secret, &chain, 1 | BIP32_HARD);
+        CKDpriv(&secret, &chain, 0);
+    }
+    
     
     NSMutableData *privKey = [NSMutableData secureDataWithCapacity:34];
 

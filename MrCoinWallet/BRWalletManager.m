@@ -396,18 +396,17 @@ static NSString *getKeychainString(NSString *key, NSError **error)
 - (NSString *)authPrivateKey
 {
     NSString *privKey = getKeychainString(AUTH_PRIVKEY_KEY, nil);
-    if (! privKey) privKey = [BRWalletManager authPrivateKey];
+    if (! privKey) privKey = [BRWalletManager authPrivateKeySLIP13:NULL];
     return privKey;
 }
-+ (NSString *)authPrivateKey
++ (NSString *)authPrivateKeySLIP13:(NSData*)slip13
 {
     NSString *privKey;
     NSData *seed = [[[self sharedInstance] mnemonic] deriveKeyFromPhrase:getKeychainString(MNEMONIC_KEY, nil) withPassphrase:nil];
-    privKey = [[BRBIP32Sequence new] authPrivateKeyFromSeed:seed];
+    privKey = [[BRBIP32Sequence new] authPrivateKeyFromSeed:seed slip13:slip13];
     setKeychainString(privKey, AUTH_PRIVKEY_KEY, nil);
     return privKey;
 }
-
 // true if touch id is enabled
 - (BOOL)isTouchIdEnabled
 {
