@@ -1190,6 +1190,12 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
         = [UIColor colorWithPatternImage:[UIImage imageNamed:@"wallpaper-default"]];
     }
 }
+- (void)setupViewController:(UIViewController *)viewController
+{
+    if([viewController isKindOfClass:[MRCFormViewController class]]){
+        viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    }
+}
 
 #pragma mark - MFMailComposeViewControllerDelegate
 

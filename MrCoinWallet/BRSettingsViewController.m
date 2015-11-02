@@ -528,24 +528,39 @@
     switch (indexPath.section) {
         case 0:
             if([[MrCoin settings] isConfigured]){
+                switch (indexPath.row) {
+                    case 2:
+                        [self.navigationController pushViewController:[MrCoin viewController:@"CurrencySettings"] animated:YES];
+                        break;
+                        
+                    case 3: // about
+                        [self showCurrencySelector];
+                        break;
+                        
+                    case 4: // recovery phrase
+                        [[MrCoin sharedController] sendMail:[[MrCoin settings] supportEmail] subject:NSLocalizedString(@"Help me with QuickTransfer",nil)];
+                        break;
+                }
             }else{
                 switch (indexPath.row) {
                     case 0: // about
+                        [self showCurrencySelector];
+                        break;
+                        
+                    case 1: // about
                         [[MrCoin rootController] showForm:self];
                         break;
                         
-                    case 1: // recovery phrase
-                        [self showRecoveryPhrase];
+                    case 2: // recovery phrase
+                        [[MrCoin sharedController] sendMail:[[MrCoin settings] supportEmail] subject:NSLocalizedString(@"Help me with QuickTransfer",nil)];
                         break;
                 }
             }
 //            case 1:
 //                if(![[MrCoin settings] isConfigured]){
-//                    [self showCurrencySelector];
 //                }
 //                break;
 //            case 2:
-//                [self.navigationController pushViewController:[MrCoin viewController:@"CurrencySettings"] animated:YES];
 //                break;
 //            case 3:
 //                [self showCurrencySelector];
@@ -614,7 +629,7 @@
                     case 3:
                         [[MrCoin settings] resetSettings];
                         [self.tableView reloadData];
-                        [[MrCoin rootController] showForm:self];
+                        [[MrCoin rootController] showForm:nil];
                         break;
                         
                 }
