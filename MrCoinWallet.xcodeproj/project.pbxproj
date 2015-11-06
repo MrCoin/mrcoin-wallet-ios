@@ -14,6 +14,7 @@
 		26AEE4C91BD385BB00C32E23 /* BRTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AEE4C81BD385BB00C32E23 /* BRTransferViewController.m */; settings = {ASSET_TAGS = (); }; };
 		26C79A3B1BECD5B10073C282 /* MrCoinFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C79A361BECD5A20073C282 /* MrCoinFramework.framework */; };
 		26C79A3C1BECD5B70073C282 /* MrCoin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26C79A341BECD5A20073C282 /* MrCoin.bundle */; };
+		26C79A431BECD9BC0073C282 /* MrCoinFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 26C79A361BECD5A20073C282 /* MrCoinFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		751B2B5C1B68911700EA87FB /* BRTxHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751B2B5B1B68911700EA87FB /* BRTxHistoryViewController.m */; };
 		7525B619192453840041C0F2 /* BRNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7525B618192453840041C0F2 /* BRNavigationBar.m */; };
 		752E289A192349CE00DB5A3C /* BreadWallet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 752E2898192349CE00DB5A3C /* BreadWallet.xcdatamodeld */; };
@@ -110,6 +111,13 @@
 			remoteGlobalIDString = 2610BC011BC2937F00BFF784;
 			remoteInfo = "MrCoin Agregate";
 		};
+		26C79A441BECD9BC0073C282 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26C79A291BECD5A20073C282 /* MrCoin iOS SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 26FA7F8C1BC2A2580018B72C;
+			remoteInfo = MrCoinFramework;
+		};
 		757FC2521ADA30D100A1FDF7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75D5F3B6191EC270004AB296 /* Project object */;
@@ -134,6 +142,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		26C79A461BECD9BC0073C282 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				26C79A431BECD9BC0073C282 /* MrCoinFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BAE12BF71B2DEE7F00895CC5 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -704,6 +723,7 @@
 				75D5F3BB191EC270004AB296 /* Frameworks */,
 				75D5F3BC191EC270004AB296 /* Resources */,
 				BAE12BF71B2DEE7F00895CC5 /* Embed App Extensions */,
+				26C79A461BECD9BC0073C282 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -711,6 +731,7 @@
 				757FC2531ADA30D100A1FDF7 /* PBXTargetDependency */,
 				26C79A3A1BECD5AC0073C282 /* PBXTargetDependency */,
 				BAE12BF11B2DEE7F00895CC5 /* PBXTargetDependency */,
+				26C79A451BECD9BC0073C282 /* PBXTargetDependency */,
 			);
 			name = Wallet;
 			productName = BreadWallet;
@@ -984,6 +1005,11 @@
 			isa = PBXTargetDependency;
 			name = "MrCoin Agregate";
 			targetProxy = 26C79A391BECD5AC0073C282 /* PBXContainerItemProxy */;
+		};
+		26C79A451BECD9BC0073C282 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MrCoinFramework;
+			targetProxy = 26C79A441BECD9BC0073C282 /* PBXContainerItemProxy */;
 		};
 		757FC2531ADA30D100A1FDF7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
