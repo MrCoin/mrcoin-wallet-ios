@@ -585,7 +585,7 @@
                             </view>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.91372549020000005" green="0.87843137250000003" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.96078431372549022" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="B1V-5u-az7" secondAttribute="bottom" id="2Sg-RK-xbu"/>
                             <constraint firstAttribute="trailing" secondItem="xl3-sr-16q" secondAttribute="trailing" constant="35" id="3k8-ws-pJj"/>
