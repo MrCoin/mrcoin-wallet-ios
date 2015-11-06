@@ -42,6 +42,7 @@
 #import <mach-o/dyld.h>
 
 // MrCoin Delegate deps
+#import <MrCoinFramework/MrCoinFramework.h>
 #import "BRWalletManager.h"
 #import "BRKey.h"
 #import "NSData+Bitcoin.h"
@@ -1155,8 +1156,7 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
 - (NSString*) requestPrivateKey
 {
     publicKey = nil;
-    
-    NSData *slip13 = [[MrCoin api] slip13Path:0x00000000 uri:@"https://www.mrcoin.eu/callback/bitid"];
+    NSData *slip13 = [NSData slip0013ForIndex:0x00000000 uri:@"https://www.mrcoin.eu/callback/bitid"];
     return [BRWalletManager authPrivateKeySLIP13:slip13];
 }
 - (NSString*) requestMessageSignature:(NSString*)message privateKey:(NSString*)privateKey;
