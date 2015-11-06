@@ -12,8 +12,8 @@
 		220460521BA0B93200D07B61 /* BREventConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 220460511BA0B93200D07B61 /* BREventConfirmView.xib */; };
 		220460551BA0BEEE00D07B61 /* BREventConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220460541BA0BEEE00D07B61 /* BREventConfirmView.m */; };
 		26AEE4C91BD385BB00C32E23 /* BRTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AEE4C81BD385BB00C32E23 /* BRTransferViewController.m */; settings = {ASSET_TAGS = (); }; };
-		26BDBBCF1BD30D770088D073 /* MrCoin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26BDBBC81BD30D5C0088D073 /* MrCoin.bundle */; };
-		26BDBBD01BD30D7C0088D073 /* MrCoinFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BDBBCA1BD30D5C0088D073 /* MrCoinFramework.framework */; };
+		26C79A3B1BECD5B10073C282 /* MrCoinFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C79A361BECD5A20073C282 /* MrCoinFramework.framework */; };
+		26C79A3C1BECD5B70073C282 /* MrCoin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 26C79A341BECD5A20073C282 /* MrCoin.bundle */; };
 		751B2B5C1B68911700EA87FB /* BRTxHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751B2B5B1B68911700EA87FB /* BRTxHistoryViewController.m */; };
 		7525B619192453840041C0F2 /* BRNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7525B618192453840041C0F2 /* BRNavigationBar.m */; };
 		752E289A192349CE00DB5A3C /* BreadWallet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 752E2898192349CE00DB5A3C /* BreadWallet.xcdatamodeld */; };
@@ -75,40 +75,40 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		26BDBBC51BD30D5C0088D073 /* PBXContainerItemProxy */ = {
+		26C79A311BECD5A20073C282 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 26BDBBBD1BD30D5C0088D073 /* MrCoin iOS SDK.xcodeproj */;
+			containerPortal = 26C79A291BECD5A20073C282 /* MrCoin iOS SDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 2622ACD31BC290FD0017259E;
 			remoteInfo = MrCoin;
 		};
-		26BDBBC71BD30D5C0088D073 /* PBXContainerItemProxy */ = {
+		26C79A331BECD5A20073C282 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 26BDBBBD1BD30D5C0088D073 /* MrCoin iOS SDK.xcodeproj */;
+			containerPortal = 26C79A291BECD5A20073C282 /* MrCoin iOS SDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 2610BC0C1BC2945800BFF784;
 			remoteInfo = MrCoinResources;
 		};
-		26BDBBC91BD30D5C0088D073 /* PBXContainerItemProxy */ = {
+		26C79A351BECD5A20073C282 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 26BDBBBD1BD30D5C0088D073 /* MrCoin iOS SDK.xcodeproj */;
+			containerPortal = 26C79A291BECD5A20073C282 /* MrCoin iOS SDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 26FA7F8D1BC2A2580018B72C;
 			remoteInfo = MrCoinFramework;
 		};
-		26BDBBCB1BD30D5C0088D073 /* PBXContainerItemProxy */ = {
+		26C79A371BECD5A20073C282 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 26BDBBBD1BD30D5C0088D073 /* MrCoin iOS SDK.xcodeproj */;
+			containerPortal = 26C79A291BECD5A20073C282 /* MrCoin iOS SDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 26D9F00C1BD237EE0016658B;
 			remoteInfo = MrCoinTests;
 		};
-		26BDBBCD1BD30D6C0088D073 /* PBXContainerItemProxy */ = {
+		26C79A391BECD5AC0073C282 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 26BDBBBD1BD30D5C0088D073 /* MrCoin iOS SDK.xcodeproj */;
+			containerPortal = 26C79A291BECD5A20073C282 /* MrCoin iOS SDK.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 2610BC011BC2937F00BFF784;
-			remoteInfo = Framework;
+			remoteInfo = "MrCoin Agregate";
 		};
 		757FC2521ADA30D100A1FDF7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -155,7 +155,7 @@
 		220460541BA0BEEE00D07B61 /* BREventConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREventConfirmView.m; sourceTree = "<group>"; };
 		26AEE4C71BD385BB00C32E23 /* BRTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTransferViewController.h; sourceTree = "<group>"; };
 		26AEE4C81BD385BB00C32E23 /* BRTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTransferViewController.m; sourceTree = "<group>"; };
-		26BDBBBD1BD30D5C0088D073 /* MrCoin iOS SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "MrCoin iOS SDK.xcodeproj"; path = "../../mrcoin-sdk-ios/framework/MrCoin iOS SDK.xcodeproj"; sourceTree = "<group>"; };
+		26C79A291BECD5A20073C282 /* MrCoin iOS SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "MrCoin iOS SDK.xcodeproj"; path = "sdk/framework/MrCoin iOS SDK.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		7509C10C1AF3076000D03FD5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		7509C10E1AF3076100D03FD5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7509C1101AF3720100D03FD5 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
@@ -358,7 +358,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26BDBBD01BD30D7C0088D073 /* MrCoinFramework.framework in Frameworks */,
+				26C79A3B1BECD5B10073C282 /* MrCoinFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,13 +380,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		26BDBBBE1BD30D5C0088D073 /* Products */ = {
+		26C79A2A1BECD5A20073C282 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				26BDBBC61BD30D5C0088D073 /* libMrCoin.a */,
-				26BDBBC81BD30D5C0088D073 /* MrCoin.bundle */,
-				26BDBBCA1BD30D5C0088D073 /* MrCoinFramework.framework */,
-				26BDBBCC1BD30D5C0088D073 /* MrCoinTests.xctest */,
+				26C79A321BECD5A20073C282 /* libMrCoin.a */,
+				26C79A341BECD5A20073C282 /* MrCoin.bundle */,
+				26C79A361BECD5A20073C282 /* MrCoinFramework.framework */,
+				26C79A381BECD5A20073C282 /* MrCoinTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -486,7 +486,7 @@
 		7579F7FE19231D4600CA56F4 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				26BDBBBD1BD30D5C0088D073 /* MrCoin iOS SDK.xcodeproj */,
+				26C79A291BECD5A20073C282 /* MrCoin iOS SDK.xcodeproj */,
 				752E28EF19234E8100DB5A3C /* Reachability.h */,
 				752E28F019234E8100DB5A3C /* Reachability.m */,
 				758B161A1AA9ADC4002C65DD /* secp256k1 */,
@@ -708,8 +708,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				26BDBBCE1BD30D6C0088D073 /* PBXTargetDependency */,
 				757FC2531ADA30D100A1FDF7 /* PBXTargetDependency */,
+				26C79A3A1BECD5AC0073C282 /* PBXTargetDependency */,
 				BAE12BF11B2DEE7F00895CC5 /* PBXTargetDependency */,
 			);
 			name = Wallet;
@@ -824,8 +824,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 26BDBBBE1BD30D5C0088D073 /* Products */;
-					ProjectRef = 26BDBBBD1BD30D5C0088D073 /* MrCoin iOS SDK.xcodeproj */;
+					ProductGroup = 26C79A2A1BECD5A20073C282 /* Products */;
+					ProjectRef = 26C79A291BECD5A20073C282 /* MrCoin iOS SDK.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -839,32 +839,32 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		26BDBBC61BD30D5C0088D073 /* libMrCoin.a */ = {
+		26C79A321BECD5A20073C282 /* libMrCoin.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libMrCoin.a;
-			remoteRef = 26BDBBC51BD30D5C0088D073 /* PBXContainerItemProxy */;
+			remoteRef = 26C79A311BECD5A20073C282 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		26BDBBC81BD30D5C0088D073 /* MrCoin.bundle */ = {
+		26C79A341BECD5A20073C282 /* MrCoin.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = MrCoin.bundle;
-			remoteRef = 26BDBBC71BD30D5C0088D073 /* PBXContainerItemProxy */;
+			remoteRef = 26C79A331BECD5A20073C282 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		26BDBBCA1BD30D5C0088D073 /* MrCoinFramework.framework */ = {
+		26C79A361BECD5A20073C282 /* MrCoinFramework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = MrCoinFramework.framework;
-			remoteRef = 26BDBBC91BD30D5C0088D073 /* PBXContainerItemProxy */;
+			remoteRef = 26C79A351BECD5A20073C282 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		26BDBBCC1BD30D5C0088D073 /* MrCoinTests.xctest */ = {
+		26C79A381BECD5A20073C282 /* MrCoinTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = MrCoinTests.xctest;
-			remoteRef = 26BDBBCB1BD30D5C0088D073 /* PBXContainerItemProxy */;
+			remoteRef = 26C79A371BECD5A20073C282 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -881,7 +881,7 @@
 				220460521BA0B93200D07B61 /* BREventConfirmView.xib in Resources */,
 				752E28F719235B3000DB5A3C /* FixedPeers.plist in Resources */,
 				75D5F3DE191EC270004AB296 /* Main.storyboard in Resources */,
-				26BDBBCF1BD30D770088D073 /* MrCoin.bundle in Resources */,
+				26C79A3C1BECD5B70073C282 /* MrCoin.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -980,10 +980,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		26BDBBCE1BD30D6C0088D073 /* PBXTargetDependency */ = {
+		26C79A3A1BECD5AC0073C282 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = Framework;
-			targetProxy = 26BDBBCD1BD30D6C0088D073 /* PBXContainerItemProxy */;
+			name = "MrCoin Agregate";
+			targetProxy = 26C79A391BECD5AC0073C282 /* PBXContainerItemProxy */;
 		};
 		757FC2531ADA30D100A1FDF7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
