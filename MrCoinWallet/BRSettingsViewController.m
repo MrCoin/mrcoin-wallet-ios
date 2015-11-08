@@ -201,16 +201,17 @@
     if (tableView == self.selectorController.tableView) return self.selectorOptions.count;
     
     switch (section) {
-        case 0: return ([[MrCoin settings] isConfigured]) ? 5 : 3;
+        case 0: return ([[MrCoin settings] userConfiguration] == UserConfigured) ? 4 : 2;
         case 1: return 4;
         case 2:{
             int i = 5;
             if(!self.touchId) i--;
-            if(![[MrCoin settings] isConfigured]) i--;
+            if([[MrCoin settings] userConfiguration] != UserConfigured) i--;
             return i;
             break;
         }
     }
+    
     
     return 0;
 }
@@ -237,7 +238,7 @@
     
     switch (indexPath.section) {
         case 0:
-            if([[MrCoin settings] isConfigured]){
+            if([[MrCoin settings] userConfiguration] == UserConfigured){
                 switch (indexPath.row) {
                     case 0:
                         cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
@@ -260,10 +261,10 @@
                         cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
                         cell.detailTextLabel.text = manager.localCurrencyCode;
                         break;
-                    case 4:
-                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
-                        cell.textLabel.text = NSLocalizedString(@"Help me, I have a problem!", nil);
-                        break;
+//                    case 4:
+//                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
+//                        cell.textLabel.text = NSLocalizedString(@"Help me, I have a problem!", nil);
+//                        break;
                 }
             }else{
                 switch (indexPath.row) {
@@ -275,10 +276,10 @@
                         cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
                         cell.textLabel.text = NSLocalizedString(@"setup quicktransfer", nil);
                         break;
-                    case 2:
-                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
-                        cell.textLabel.text = NSLocalizedString(@"quicktransfer support", nil);
-                        break;
+//                    case 2:
+//                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
+//                        cell.textLabel.text = NSLocalizedString(@"quicktransfer support", nil);
+//                        break;
                 }
             }
             break;
@@ -527,7 +528,7 @@
     
     switch (indexPath.section) {
         case 0:
-            if([[MrCoin settings] isConfigured]){
+            if([[MrCoin settings] userConfiguration] == UserConfigured){
                 switch (indexPath.row) {
                     case 2:
                         [self.navigationController pushViewController:[MrCoin viewController:@"CurrencySettings"] animated:YES];
@@ -592,10 +593,10 @@
             if (self.touchId) {
                 switch (indexPath.row) {
                     case 0:
-                        [self performSelector:@selector(touchIdLimit:) withObject:nil afterDelay:0.0];
+                        [self showRecoveryPhrase];
                         break;
                     case 1: // change passcode
-                        [self showRecoveryPhrase];
+                        [self performSelector:@selector(touchIdLimit:) withObject:nil afterDelay:0.0];
                         break;
                     case 2:
                         [BREventManager saveEvent:@"settings:change_pin"];
@@ -640,7 +641,7 @@
 }
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0 && [[MrCoin settings] isConfigured]){
+    if(indexPath.section == 0 && [[MrCoin settings] userConfiguration] == UserConfigured){
         if(indexPath.row < 2){
             return NO;
         }

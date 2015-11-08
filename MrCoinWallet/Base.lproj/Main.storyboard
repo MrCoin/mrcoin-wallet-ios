@@ -373,7 +373,7 @@
                             <rect key="frame" x="113" y="15" width="94" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="breadwallet" translatesAutoresizingMaskIntoConstraints="NO" id="Nbk-cZ-ENN">
+                                <imageView userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" image="breadwallet" translatesAutoresizingMaskIntoConstraints="NO" id="Nbk-cZ-ENN">
                                     <rect key="frame" x="0.0" y="1" width="94" height="15"/>
                                     <animations/>
                                 </imageView>
@@ -621,7 +621,7 @@
                             <rect key="frame" x="113" y="15" width="94" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="breadwallet" translatesAutoresizingMaskIntoConstraints="NO" id="KqJ-6D-LUi">
+                                <imageView userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" image="breadwallet" translatesAutoresizingMaskIntoConstraints="NO" id="KqJ-6D-LUi">
                                     <rect key="frame" x="0.0" y="1" width="94" height="15"/>
                                     <animations/>
                                 </imageView>
@@ -2402,7 +2402,7 @@
                                         <rect key="frame" x="78" y="187" width="164" height="29"/>
                                         <animations/>
                                         <string key="text">exchange rate data provided by
-bitpay.com/rates</string>
+bitpay.com/rates and mrcoin.eu</string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2931,7 +2931,7 @@ Other devices may be infected.
         </scene>
     </scenes>
     <resources>
-        <image name="breadwallet" width="93" height="15"/>
+        <image name="breadwallet" width="93" height="60"/>
         <image name="breadwallet-big" width="257" height="151"/>
         <image name="breadwallet-white" width="97" height="18"/>
         <image name="burger" width="20" height="16"/>
@@ -2953,4 +2953,5 @@ Other devices may be infected.
         <image name="wallpaper-welcome" width="757" height="568"/>
         <image name="x" width="20" height="16"/>
     </resources>
+    <color key="tintColor" red="0.062745098039215685" green="0.52941176470588236" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -1138,7 +1138,7 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
 
     MrCoin *mr = [MrCoin sharedController];
     MRCSettings *set = [mr settings];
-    [set setResellerKey:@""];
+    [set setResellerKey:@"9159f1f1-ef8b-4a8e-bd71-d95f9cfc15a8"];
 
     //
     [mr setRootController:self.transferViewController];

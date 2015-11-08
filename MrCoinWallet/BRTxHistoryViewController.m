@@ -408,7 +408,7 @@ static NSString *dateFormat(NSString *template)
             return 2;
 
         case 2:
-            return 2;
+            return 1;
     }
 
     return 0;
@@ -554,8 +554,8 @@ static NSString *dateFormat(NSString *template)
             cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
             if(indexPath.row == 0){
                 cell.textLabel.text = NSLocalizedString(@"settings", nil);
-            }else if(indexPath.row == 1){
-                cell.textLabel.text = NSLocalizedString(@"terms of service", nil);
+//            }else if(indexPath.row == 1){
+//                cell.textLabel.text = NSLocalizedString(@"terms of service", nil);
             }
             break;
     }
