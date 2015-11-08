@@ -699,7 +699,7 @@
 /* Begin PBXLegacyTarget section */
 		75001D3D1A1EE89500585F55 /* submodules */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "-c 'git submodule init && git submodule update'";
+			buildArgumentsString = "-c 'git submodule init secp256k1 && git submodule update secp256k1 && git submodule update --checkout  --remote -f --init sdk'";
 			buildConfigurationList = 75001D3E1A1EE89500585F55 /* Build configuration list for PBXLegacyTarget "submodules" */;
 			buildPhases = (
 			);
@@ -723,6 +723,7 @@
 				75D5F3BC191EC270004AB296 /* Resources */,
 				BAE12BF71B2DEE7F00895CC5 /* Embed App Extensions */,
 				26C79A461BECD9BC0073C282 /* Embed Frameworks */,
+				26C336921BEFFABE00A9E758 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -922,6 +923,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26C336921BEFFABE00A9E758 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		75D5F3BA191EC270004AB296 /* Sources */ = {
