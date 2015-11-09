@@ -29,6 +29,8 @@
 #import "NSMutableData+Bitcoin.h"
 #import "BREventManager.h"
 
+#import <MrCoinFramework/MrCoinFramework.h>
+
 #define PHRASE_LENGTH 12
 
 
@@ -221,6 +223,7 @@
     UIViewController *p = self.navigationController.presentingViewController.presentingViewController;
     
     [p dismissViewControllerAnimated:NO completion:^{
+        [[MrCoin settings] resetSettings];
         [p presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"NewWalletNav"] animated:NO
          completion:nil];
     }];

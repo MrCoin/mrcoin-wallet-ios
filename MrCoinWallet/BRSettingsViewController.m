@@ -201,12 +201,11 @@
     if (tableView == self.selectorController.tableView) return self.selectorOptions.count;
     
     switch (section) {
-        case 0: return ([[MrCoin settings] userConfiguration] == UserConfigured) ? 4 : 2;
+        case 0: return ([[MrCoin settings] userConfiguration] == UserConfigured) ? 5 : 2;
         case 1: return 4;
         case 2:{
-            int i = 5;
+            int i = 4;
             if(!self.touchId) i--;
-            if([[MrCoin settings] userConfiguration] != UserConfigured) i--;
             return i;
             break;
         }
@@ -241,17 +240,25 @@
             if([[MrCoin settings] userConfiguration] == UserConfigured){
                 switch (indexPath.row) {
                     case 0:
+                    {
                         cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
                         cell.textLabel.text = NSLocalizedString(@"phone", nil);
-                        cell.detailTextLabel.text = [[MrCoin settings] userPhone];
+                        [[MrCoin api] getPhone:^(id result) {
+                            cell.detailTextLabel.text = result;
+                        } error:nil];
                         cell.accessoryType = UITableViewCellAccessoryNone;
                         break;
+                    }
                     case 1:
+                    {
                         cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
                         cell.textLabel.text = NSLocalizedString(@"email", nil);
-                        cell.detailTextLabel.text = [[MrCoin settings] userEmail];
+                        [[MrCoin api] getEmail:^(id result) {
+                            cell.detailTextLabel.text = result;
+                        } error:nil];
                         cell.accessoryType = UITableViewCellAccessoryNone;
                         break;
+                    }
                     case 2:
                         cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
                         cell.textLabel.text = NSLocalizedString(@"quicktransfer currency", nil);
@@ -261,10 +268,10 @@
                         cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
                         cell.detailTextLabel.text = manager.localCurrencyCode;
                         break;
-//                    case 4:
-//                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
-//                        cell.textLabel.text = NSLocalizedString(@"Help me, I have a problem!", nil);
-//                        break;
+                    case 4:
+                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
+                        cell.textLabel.text = NSLocalizedString(@"reset quicktransfer", nil);
+                        break;
                 }
             }else{
                 switch (indexPath.row) {
@@ -323,10 +330,6 @@
                     case 3:
                         cell = [tableView dequeueReusableCellWithIdentifier:restoreIdent];
                         break;
-                    case 4:
-                        cell = [tableView dequeueReusableCellWithIdentifier:restoreIdent];
-                        cell.textLabel.text = NSLocalizedString(@"reset quicktransfer", nil);
-                        break;
                         
                 }
             }else{
@@ -341,10 +344,6 @@
                         break;
                     case 2:
                         cell = [tableView dequeueReusableCellWithIdentifier:restoreIdent];
-                        break;
-                    case 3:
-                        cell = [tableView dequeueReusableCellWithIdentifier:restoreIdent];
-                        cell.textLabel.text = NSLocalizedString(@"reset quicktransfer", nil);
                         break;
                         
                 }
@@ -539,7 +538,9 @@
                         break;
                         
                     case 4: // recovery phrase
-                        [[MrCoin sharedController] sendMail:[[MrCoin settings] supportEmail] subject:NSLocalizedString(@"Help me with QuickTransfer",nil)];
+                        [[MrCoin settings] resetSettings];
+                        [self.tableView reloadData];
+                        [[MrCoin rootController] showForm:nil];
                         break;
                 }
             }else{
@@ -606,11 +607,6 @@
                     case 3: // start/recover another wallet (handled by storyboard)
                         [BREventManager saveEvent:@"settings:recover"];
                         break;
-                    case 4:
-                        [[MrCoin settings] resetSettings];
-                        [self.tableView reloadData];
-                        [[MrCoin rootController] showForm:self];
-                        break;
                 }
             }else{
                 switch (indexPath.row) {
@@ -626,11 +622,6 @@
                         
                     case 2: // start/recover another wallet (handled by storyboard)
                         [BREventManager saveEvent:@"settings:recover"];
-                        break;
-                    case 3:
-                        [[MrCoin settings] resetSettings];
-                        [self.tableView reloadData];
-                        [[MrCoin rootController] showForm:nil];
                         break;
                         
                 }
