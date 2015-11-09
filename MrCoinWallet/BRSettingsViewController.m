@@ -201,7 +201,7 @@
     if (tableView == self.selectorController.tableView) return self.selectorOptions.count;
     
     switch (section) {
-        case 0: return ([[MrCoin settings] userConfiguration] == UserConfigured) ? 5 : 2;
+        case 0: return ([[MrCoin settings] userConfiguration] == MRCUserConfigured) ? 5 : 2;
         case 1: return 4;
         case 2:{
             int i = 4;
@@ -237,7 +237,7 @@
     
     switch (indexPath.section) {
         case 0:
-            if([[MrCoin settings] userConfiguration] == UserConfigured){
+            if([[MrCoin settings] userConfiguration] == MRCUserConfigured){
                 switch (indexPath.row) {
                     case 0:
                     {
@@ -245,7 +245,9 @@
                         cell.textLabel.text = NSLocalizedString(@"phone", nil);
                         [[MrCoin api] getPhone:^(id result) {
                             cell.detailTextLabel.text = result;
-                        } error:nil];
+                        } error:^(NSArray *errors, MRCAPIErrorType errorType) {
+                            
+                        }];
                         cell.accessoryType = UITableViewCellAccessoryNone;
                         break;
                     }
@@ -255,7 +257,9 @@
                         cell.textLabel.text = NSLocalizedString(@"email", nil);
                         [[MrCoin api] getEmail:^(id result) {
                             cell.detailTextLabel.text = result;
-                        } error:nil];
+                        } error:^(NSArray *errors, MRCAPIErrorType errorType) {
+                            
+                        }];
                         cell.accessoryType = UITableViewCellAccessoryNone;
                         break;
                     }
@@ -527,7 +531,7 @@
     
     switch (indexPath.section) {
         case 0:
-            if([[MrCoin settings] userConfiguration] == UserConfigured){
+            if([[MrCoin settings] userConfiguration] == MRCUserConfigured){
                 switch (indexPath.row) {
                     case 2:
                         [self.navigationController pushViewController:[MrCoin viewController:@"CurrencySettings"] animated:YES];
@@ -632,7 +636,7 @@
 }
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0 && [[MrCoin settings] userConfiguration] == UserConfigured){
+    if(indexPath.section == 0 && [[MrCoin settings] userConfiguration] == MRCUserConfigured){
         if(indexPath.row < 2){
             return NO;
         }

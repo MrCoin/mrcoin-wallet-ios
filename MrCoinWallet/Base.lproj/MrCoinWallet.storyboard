@@ -1468,7 +1468,7 @@
                                 </connections>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ce6-Wi-wk4" customClass="MRCButton">
-                                <rect key="frame" x="56" y="262" width="208" height="44"/>
+                                <rect key="frame" x="51" y="262" width="218" height="44"/>
                                 <animations/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -1476,6 +1476,7 @@
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="290" id="KnJ-HV-aoB"/>
                                     <constraint firstAttribute="height" constant="44" id="WmA-Sw-dye"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="10" maxY="0.0"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
@@ -1490,12 +1491,13 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfj-xS-5rN" customClass="MRCButton">
-                                <rect key="frame" x="56" y="322" width="208" height="44"/>
+                                <rect key="frame" x="51" y="322" width="218" height="44"/>
                                 <animations/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="nsj-xF-Ebz"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
                                 <state key="normal" title="pay address from clipboard"/>
@@ -1517,11 +1519,20 @@
                                     <outlet property="delegate" destination="RsQ-W7-grB" id="r8I-vJ-Pvw"/>
                                 </connections>
                             </textView>
+                            <imageView userInteractionEnabled="NO" tag="4111" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="send_money" translatesAutoresizingMaskIntoConstraints="NO" id="FDL-Uh-Qc7">
+                                <rect key="frame" x="16" y="476" width="120" height="100"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="gt7-yk-Rsn"/>
+                                    <constraint firstAttribute="height" constant="100" id="vv1-6E-oOR"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ce6-Wi-wk4" firstAttribute="width" secondItem="bfj-xS-5rN" secondAttribute="width" id="3zv-yM-vp5"/>
+                            <constraint firstItem="FDL-Uh-Qc7" firstAttribute="leading" secondItem="Nmx-0C-BXz" secondAttribute="leadingMargin" id="9Kl-hf-eU3"/>
                             <constraint firstAttribute="centerX" secondItem="l5l-JR-LKA" secondAttribute="centerX" id="BsW-Di-um1"/>
                             <constraint firstItem="bfj-xS-5rN" firstAttribute="centerX" secondItem="SgP-DR-cyl" secondAttribute="centerX" id="FIk-PE-925"/>
                             <constraint firstItem="bfj-xS-5rN" firstAttribute="centerY" secondItem="Nmx-0C-BXz" secondAttribute="centerY" constant="60" id="KuY-Hv-Ke7"/>
@@ -1532,6 +1543,7 @@
                             <constraint firstAttribute="centerY" secondItem="ce6-Wi-wk4" secondAttribute="centerY" id="qpi-Sr-DZd"/>
                             <constraint firstItem="SgP-DR-cyl" firstAttribute="leading" secondItem="Nmx-0C-BXz" secondAttribute="leading" constant="12" id="tzu-xe-VUc"/>
                             <constraint firstAttribute="centerX" secondItem="bfj-xS-5rN" secondAttribute="centerX" id="wtK-vc-r7p"/>
+                            <constraint firstItem="QUJ-kn-Ubh" firstAttribute="top" secondItem="FDL-Uh-Qc7" secondAttribute="bottomMargin" id="y2D-Ld-ruJ"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="8hO-zb-g85" appends="YES" id="rl9-b8-NMw"/>
@@ -2460,7 +2472,7 @@ copyright © Aaron Voisine  this app is open souce</string>
                                     <outletCollection property="gestureRecognizers" destination="68Y-ha-WTV" appends="YES" id="ofC-qZ-bdB"/>
                                 </connections>
                             </view>
-                            <imageView userInteractionEnabled="NO" tag="4111" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="mrcoin_about" translatesAutoresizingMaskIntoConstraints="NO" id="723-pU-2gK">
+                            <imageView userInteractionEnabled="NO" tag="4111" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="about" translatesAutoresizingMaskIntoConstraints="NO" id="723-pU-2gK">
                                 <rect key="frame" x="80" y="100" width="160" height="152"/>
                                 <animations/>
                                 <constraints>
@@ -2929,6 +2941,7 @@ Other devices may be infected.
         </scene>
     </scenes>
     <resources>
+        <image name="about" width="228" height="217"/>
         <image name="breadwallet" width="93" height="60"/>
         <image name="breadwallet-big" width="257" height="151"/>
         <image name="breadwallet-white" width="97" height="18"/>
@@ -2945,8 +2958,8 @@ Other devices may be infected.
         <image name="deletetoleft-pressed" width="29" height="23"/>
         <image name="flash" width="33" height="33"/>
         <image name="lock" width="12" height="16"/>
-        <image name="mrcoin_about" width="160" height="152"/>
         <image name="refresh" width="9" height="11"/>
+        <image name="send_money" width="193" height="123"/>
         <image name="wallpaper-default" width="480" height="568"/>
         <image name="wallpaper-welcome" width="757" height="568"/>
         <image name="x" width="20" height="16"/>

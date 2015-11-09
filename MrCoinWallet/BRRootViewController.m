@@ -1135,19 +1135,22 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
 #pragma mark - MrCoin Delegate
 - (void) setupMrCoin
 {
-
     MrCoin *mr = [MrCoin sharedController];
-    MRCSettings *set = [mr settings];
-    [set setResellerKey:@"9159f1f1-ef8b-4a8e-bd71-d95f9cfc15a8"];
-
-    //
     [mr setRootController:self.transferViewController];
     [mr setDelegate:self];
+
+    MRCSettings *set = [mr settings];
     [set setFormBackgroundColor:self.view.backgroundColor];
     [set setFormBackgroundImage:[UIImage imageNamed:@"wallpaper-default"]];
-    
+    [set setResellerKey:@"9159f1f1-ef8b-4a8e-bd71-d95f9cfc15a8"];
+
+    //ha a wallet currencyje HUF, akkor automatikusan azt allitsa be elso setupnal quicktransfer currencynek is
+    BRWalletManager *manager = [BRWalletManager sharedInstance];
+    if([manager.localCurrencyCode isEqualToString:@"HUF"]){
+        [set setSourceCurrency:manager.localCurrencyCode];
+    }
+    //
     [MrCoin checkUserDetails];
-//    [mr setNeedsAcceptTerms:NO];
 }
 - (NSString*) requestPublicKey
 {

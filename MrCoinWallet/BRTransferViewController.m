@@ -9,6 +9,11 @@
 #import "BRTransferViewController.h"
 #import "BRBubbleView.h"
 
+#define WELCOME_TIP      NSLocalizedString(@"Let others scan this QR code to get your bitcoin address. Anyone can send "\
+"bitcoins to your wallet by transferring them to your address.", nil)
+#define QUICKTRANSFER_TIP NSLocalizedString(@"This is your bitcoin address. Tap to copy it or send it by email or sms. The "\
+"address will change each time you receive funds, but old addresses always work.", nil)
+
 @interface BRTransferViewController ()
 
 @property (nonatomic, strong) BRBubbleView *tipView;
@@ -37,8 +42,21 @@
 
 - (IBAction)tip:(id)sender
 {
+    if ([self nextTip]) return;
+    
+    if (! [sender isKindOfClass:[UIGestureRecognizer class]] ||
+        ([sender view] != self.transferViewController.mrCoin && ! [[sender view] isKindOfClass:[UILabel class]])) {
+        if (! [sender isKindOfClass:[UIViewController class]]) return;
+        self.showTips = YES;
+    }
+    
+    self.tipView = [BRBubbleView viewWithText:WELCOME_TIP
+                                     tipPoint:[self.transferViewController.mrCoin.superview convertPoint:self.transferViewController.mrCoin.center toView:self.view]
+                                 tipDirection:BRBubbleTipDirectionUp];
+    self.tipView.backgroundColor = [UIColor orangeColor];
+    self.tipView.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+    [self.view addSubview:[self.tipView popIn]];
 }
-
 
 - (BOOL)nextTip
 {
