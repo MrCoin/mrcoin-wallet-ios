@@ -1163,13 +1163,31 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
     [set setFormBackgroundImage:[UIImage imageNamed:@"wallpaper-default"]];
     [set setResellerKey:@"9159f1f1-ef8b-4a8e-bd71-d95f9cfc15a8"];
 
+    [MrCoin checkUserDetails];
+}
+- (void) quickTransferDidSetup
+{
     //ha a wallet currencyje HUF, akkor automatikusan azt allitsa be elso setupnal quicktransfer currencynek is
+    MRCSettings *set = [MrCoin settings];
     BRWalletManager *manager = [BRWalletManager sharedInstance];
     if([manager.localCurrencyCode isEqualToString:@"HUF"]){
-        [set setSourceCurrency:manager.localCurrencyCode];
+        [set setSourceCurrency:@"HUF"];
+    }else{
+        [set setSourceCurrency:@"EUR"];
     }
-    //
-    [MrCoin checkUserDetails];
+    [set saveSettings];
+}
+- (void) quickTransferReset
+{
+    //ha a wallet currencyje HUF, akkor automatikusan azt allitsa be elso setupnal quicktransfer currencynek is
+    MRCSettings *set = [MrCoin settings];
+    BRWalletManager *manager = [BRWalletManager sharedInstance];
+    if([manager.localCurrencyCode isEqualToString:@"HUF"]){
+        [set setSourceCurrency:@"HUF"];
+    }else{
+        [set setSourceCurrency:@"EUR"];
+    }
+    [set saveSettings];
 }
 - (NSString*) requestPublicKey
 {

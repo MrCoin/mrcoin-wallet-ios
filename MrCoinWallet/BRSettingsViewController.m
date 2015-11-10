@@ -201,8 +201,8 @@
     if (tableView == self.selectorController.tableView) return self.selectorOptions.count;
     
     switch (section) {
-        case 0: return ([[MrCoin settings] userConfiguration] == MRCUserConfigured) ? 5 : 2;
-        case 1: return 4;
+        case 0: return 1;
+        case 1: return 2;
         case 2:{
             int i = 4;
             if(!self.touchId) i--;
@@ -237,82 +237,34 @@
     
     switch (indexPath.section) {
         case 0:
-            if([[MrCoin settings] userConfiguration] == MRCUserConfigured){
-                switch (indexPath.row) {
-                    case 0:
-                    {
-                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
-                        cell.textLabel.text = NSLocalizedString(@"phone", nil);
-                        [[MrCoin api] getPhone:^(id result) {
-                            cell.detailTextLabel.text = result;
-                        } error:^(NSArray *errors, MRCAPIErrorType errorType) {
-                            
-                        }];
-                        cell.accessoryType = UITableViewCellAccessoryNone;
-                        break;
-                    }
-                    case 1:
-                    {
-                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
-                        cell.textLabel.text = NSLocalizedString(@"email", nil);
-                        [[MrCoin api] getEmail:^(id result) {
-                            cell.detailTextLabel.text = result;
-                        } error:^(NSArray *errors, MRCAPIErrorType errorType) {
-                            
-                        }];
-                        cell.accessoryType = UITableViewCellAccessoryNone;
-                        break;
-                    }
-                    case 2:
-                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
-                        cell.textLabel.text = NSLocalizedString(@"quicktransfer currency", nil);
-                        cell.detailTextLabel.text = [[MrCoin settings] sourceCurrency];
-                        break;
-                    case 3:
-                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
-                        cell.detailTextLabel.text = manager.localCurrencyCode;
-                        break;
-                    case 4:
-                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
-                        cell.textLabel.text = NSLocalizedString(@"reset quicktransfer", nil);
-                        break;
-                }
-            }else{
-                switch (indexPath.row) {
-                    case 0:
-                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
-                        cell.detailTextLabel.text = manager.localCurrencyCode;
-                        break;
-                    case 1:
-                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
-                        cell.textLabel.text = NSLocalizedString(@"setup quicktransfer", nil);
-                        break;
-//                    case 2:
-//                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
-//                        cell.textLabel.text = NSLocalizedString(@"quicktransfer support", nil);
-//                        break;
-                }
-            }
-            break;
-            
-        case 1:
             cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
             
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text = NSLocalizedString(@"about", nil);
                     break;
-                case 1:
-                    cell.textLabel.text = NSLocalizedString(@"website", nil);
-                    break;
-                case 2:
-                    cell.textLabel.text = NSLocalizedString(@"contact", nil);
-                    break;
-                case 3:
-                    cell.textLabel.text = NSLocalizedString(@"terms of service", nil);
-                    break;
             }
             
+            break;
+            
+
+        case 1:
+            if([[MrCoin settings] userConfiguration] == MRCUserConfigured){
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
+                        cell.detailTextLabel.text = manager.localCurrencyCode;
+                        break;
+                    }
+                    case 1:
+                    {
+                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
+                        cell.textLabel.text = NSLocalizedString(@"quick transfer", nil);
+                        break;
+                    }
+                }
+            }
             break;
             
         case 2:
@@ -531,65 +483,20 @@
     
     switch (indexPath.section) {
         case 0:
-            if([[MrCoin settings] userConfiguration] == MRCUserConfigured){
-                switch (indexPath.row) {
-                    case 2:
-                        [self.navigationController pushViewController:[MrCoin viewController:@"CurrencySettings"] animated:YES];
-                        break;
-                        
-                    case 3: // about
-                        [self showCurrencySelector];
-                        break;
-                        
-                    case 4: // recovery phrase
-                        [[MrCoin settings] resetSettings];
-                        [self.tableView reloadData];
-                        [[MrCoin rootController] showForm:nil];
-                        break;
-                }
-            }else{
-                switch (indexPath.row) {
-                    case 0: // about
-                        [self showCurrencySelector];
-                        break;
-                        
-                    case 1: // about
-                        [[MrCoin rootController] showForm:self];
-                        break;
-                        
-                    case 2: // recovery phrase
-                        [[MrCoin sharedController] sendMail:[[MrCoin settings] supportEmail] subject:NSLocalizedString(@"Help me with QuickTransfer",nil)];
-                        break;
-                }
+            switch (indexPath.row) {
+                case 0:
+                    [self showAbout];
+                    break;
             }
-//            case 1:
-//                if(![[MrCoin settings] isConfigured]){
-//                }
-//                break;
-//            case 2:
-//                break;
-//            case 3:
-//                [self showCurrencySelector];
-//                break;
-//            }
-//            }else{
-//                
-//            }
             break;
 
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    [self showAbout];
+                    [self showCurrencySelector];
                     break;
                 case 1:
-                    [[MrCoin sharedController] openURL:[NSURL URLWithString:[[MrCoin settings] websiteURL]]];
-                    break;
-                case 2:
-                    [self.navigationController pushViewController:[MrCoin documentViewController:MrCoinDocumentSupport] animated:YES];
-                    break;
-                case 3:
-                    [self.navigationController pushViewController:[MrCoin documentViewController:MrCoinDocumentTerms] animated:YES];
+                    [self.navigationController pushViewController:[MrCoin viewController:@"Settings"] animated:YES];
                     break;
             }
             break;
@@ -636,11 +543,6 @@
 }
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0 && [[MrCoin settings] userConfiguration] == MRCUserConfigured){
-        if(indexPath.row < 2){
-            return NO;
-        }
-    }
     return YES;
 }
 
