@@ -90,7 +90,7 @@
 		<string>fetch</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
+	<string>MrCoinWallet</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

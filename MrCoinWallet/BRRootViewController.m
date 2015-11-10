@@ -449,7 +449,7 @@
             completion:^{
                 self.splash.hidden = YES;
                 self.navigationController.navigationBar.hidden = NO;
-                [self.pageViewController setViewControllers:@[self.receiveViewController]
+                [self.pageViewController setViewControllers:@[self.transferViewController]
                  direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
             }];
 
@@ -768,9 +768,18 @@
 {
     BRWalletManager *manager = [BRWalletManager sharedInstance];
     
-    if (sender == self.receiveViewController) {
+    if (sender == self.transferViewController) {
+        BRReceiveViewController *receiveController = self.receiveViewController;
+        
+        [(id)self.pageViewController setViewControllers:@[receiveController]
+                                              direction:UIPageViewControllerNavigationDirectionReverse
+                                               animated:YES
+                                             completion:^(BOOL finished) { [receiveController tip:sender]; }];
+        return;
+    }
+    else if (sender == self.receiveViewController) {
         BRSendViewController *sendController = self.sendViewController;
-
+        
         [(id)self.pageViewController setViewControllers:@[sendController]
                                               direction:UIPageViewControllerNavigationDirectionReverse
                                                animated:YES
@@ -912,6 +921,16 @@ viewControllerAfterViewController:(UIViewController *)viewController
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
+//    if(page)
+    NSInteger p;
+    if(pageViewController.viewControllers.count < 3){
+        if([pageViewController.viewControllers lastObject] == self.sendViewController)           p = 0;
+        else if([pageViewController.viewControllers lastObject] == self.receiveViewController)   p = 1;
+        else if([pageViewController.viewControllers lastObject] == self.transferViewController)  p = 2;
+        currentPage = p;
+    }
+    NSLog(@"%@",pageViewController);
+    NSLog(@"%@",pageViewController.viewControllers);
     return currentPage;
 }
 -(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers

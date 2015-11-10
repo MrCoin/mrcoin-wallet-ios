@@ -9,10 +9,8 @@
 #import "BRTransferViewController.h"
 #import "BRBubbleView.h"
 
-#define WELCOME_TIP      NSLocalizedString(@"Let others scan this QR code to get your bitcoin address. Anyone can send "\
-"bitcoins to your wallet by transferring them to your address.", nil)
-#define QUICKTRANSFER_TIP NSLocalizedString(@"This is your bitcoin address. Tap to copy it or send it by email or sms. The "\
-"address will change each time you receive funds, but old addresses always work.", nil)
+#define WELCOME_TIP      NSLocalizedString(@"TIP", nil)
+#define QUICKTRANSFER_TIP NSLocalizedString(@"Whatever amount you transfer (up to 1,000 EUR), it will be converted to Bitcoin and sent directly into your wallet.\nPlease allow 12-48 banking hours for the transfer to clear in the Plan Old Banking System.", nil)
 
 @interface BRTransferViewController ()
 
@@ -26,6 +24,8 @@
 @implementation BRTransferViewController
 {
     NSString *publicKey;
+    UITapGestureRecognizer *r1, *r2, *r3;
+    UITapGestureRecognizer *r4, *r5, *r6;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,14 +33,56 @@
 //    [[MrCoin api] authenticate:^(id result) {
 //        NSLog(@"result %@",result);
 //    } error:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //
+    r1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tip:)];
+    r2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tip:)];
+    r3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tip:)];
+    self.emptyViewController.view.gestureRecognizers = @[r1];
+    self.emptyViewController.mrCoin.gestureRecognizers = @[r2];
+    self.emptyViewController.titleView.gestureRecognizers = @[r3];
+    
+    r4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tip2:)];
+    r5 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tip2:)];
+    r6 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tip2:)];
+    self.transferViewController.view.gestureRecognizers = @[r4];
+    self.transferViewController.mrCoin.gestureRecognizers = @[r5];
+    self.transferViewController.titleView.gestureRecognizers = @[r6];
+}
 
 - (IBAction)tip:(id)sender
+{
+    if ([self nextTip]) return;
+    
+    if (! [sender isKindOfClass:[UIGestureRecognizer class]] ||
+        ([sender view] != self.emptyViewController.mrCoin && ! [[sender view] isKindOfClass:[UILabel class]])) {
+        if (! [sender isKindOfClass:[UIViewController class]]) return;
+        self.showTips = YES;
+    }
+
+    CGPoint p = [self.emptyViewController.mrCoin.superview convertPoint:self.emptyViewController.mrCoin.frame.origin toView:self.view];
+    p.x += self.emptyViewController.mrCoin.frame.size.width*0.5f;
+    p.x -= 15.0f;
+    p.y += 10.0f;
+    
+    self.tipView = [BRBubbleView viewWithText:WELCOME_TIP
+                                     tipPoint:p
+                                 tipDirection:BRBubbleTipDirectionDown];
+    self.tipView.backgroundColor = [UIColor orangeColor];
+    self.tipView.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+    [self.view addSubview:[self.tipView popIn]];
+}
+
+- (IBAction)tip2:(id)sender
 {
     if ([self nextTip]) return;
     
@@ -50,19 +92,48 @@
         self.showTips = YES;
     }
     
-    self.tipView = [BRBubbleView viewWithText:WELCOME_TIP
-                                     tipPoint:[self.transferViewController.mrCoin.superview convertPoint:self.transferViewController.mrCoin.center toView:self.view]
-                                 tipDirection:BRBubbleTipDirectionUp];
+    CGPoint p = [self.transferViewController.mrCoin.superview convertPoint:self.transferViewController.mrCoin.frame.origin toView:self.view];
+    p.x += self.transferViewController.mrCoin.frame.size.width*0.5f;
+//    p.x -= 15.0f;
+//    p.y += 10.0f;
+    
+    self.tipView = [BRBubbleView viewWithText:QUICKTRANSFER_TIP
+                                     tipPoint:p
+                                 tipDirection:BRBubbleTipDirectionDown];
     self.tipView.backgroundColor = [UIColor orangeColor];
     self.tipView.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
     [self.view addSubview:[self.tipView popIn]];
 }
-
 - (BOOL)nextTip
 {
     if (self.tipView.alpha < 0.5) return [(id)self.parentViewController.parentViewController nextTip];
     
+    BRBubbleView *tipView = self.tipView;
+    
+    self.tipView = nil;
+    [tipView popOut];
+    
+//    if ([tipView.text hasPrefix:WELCOME_TIP]) {
+//        self.tipView = [BRBubbleView viewWithText:ADDRESS_TIP tipPoint:[self.addressButton.superview
+//                                                                        convertPoint:CGPointMake(self.addressButton.center.x, self.addressButton.center.y - 10.0)
+//                                                                        toView:self.view] tipDirection:BRBubbleTipDirectionDown];
+//        self.tipView.backgroundColor = tipView.backgroundColor;
+//        self.tipView.font = tipView.font;
+//        self.tipView.userInteractionEnabled = NO;
+//        [self.view addSubview:[self.tipView popIn]];
+//    }
+//    else
+        if (self.showTips) { // && [tipView.text hasPrefix:ADDRESS_TIP]
+        self.showTips = NO;
+        [(id)self.parentViewController.parentViewController tip:self];
+    }
+    
     return YES;
+}
+
+- (void)hideTips
+{
+    if (self.tipView.alpha > 0.5) [self.tipView popOut];
 }
 
 #pragma mark - UIViewControllerAnimatedTransitioning

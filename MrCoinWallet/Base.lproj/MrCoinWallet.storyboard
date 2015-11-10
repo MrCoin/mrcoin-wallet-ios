@@ -1519,13 +1519,16 @@
                                     <outlet property="delegate" destination="RsQ-W7-grB" id="r8I-vJ-Pvw"/>
                                 </connections>
                             </textView>
-                            <imageView userInteractionEnabled="NO" tag="4111" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="send_money" translatesAutoresizingMaskIntoConstraints="NO" id="FDL-Uh-Qc7">
+                            <imageView tag="4111" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="send_money" translatesAutoresizingMaskIntoConstraints="NO" id="FDL-Uh-Qc7">
                                 <rect key="frame" x="16" y="476" width="120" height="100"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="gt7-yk-Rsn"/>
                                     <constraint firstAttribute="height" constant="100" id="vv1-6E-oOR"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="0sB-Ec-J5a" appends="YES" id="zcj-0f-XTg"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <animations/>
@@ -1559,6 +1562,11 @@
                         <outlet property="sendLabel" destination="l5l-JR-LKA" id="uWh-qp-akV"/>
                     </connections>
                 </viewController>
+                <tapGestureRecognizer id="0sB-Ec-J5a">
+                    <connections>
+                        <action selector="tip:" destination="RsQ-W7-grB" id="aPg-5I-Jpd"/>
+                    </connections>
+                </tapGestureRecognizer>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6F7-JO-CPd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="EKr-Gi-AHW">
                     <connections>
