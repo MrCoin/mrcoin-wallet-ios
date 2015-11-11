@@ -209,6 +209,46 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
     return a;
 }
 
+#pragma mark - HDWallet Path
+
+- (NSData *)authPublicKeyFromSeed:(NSData *)seed
+{
+    return [BRKey keyWithPrivateKey:[self authPrivateKeyFromSeed:seed]].publicKey;
+}
+
+- (NSString *)authPrivateKeyFromSeed:(NSData *)seed
+{
+    if (! seed) return nil;
+    
+    UInt512 I;
+    
+    HMAC(&I, SHA512, 64, BIP32_SEED_KEY, strlen(BIP32_SEED_KEY), seed.bytes, seed.length);
+    
+    UInt256 secret = *(UInt256 *)&I, chain = *(UInt256 *)&I.u8[sizeof(UInt256)];
+    uint8_t version = BITCOIN_PRIVKEY;
+    
+#if BITCOIN_TESTNET
+    version = BITCOIN_PRIVKEY_TEST;
+#endif
+    
+    // path m/1H/0 (same as copay uses for bitauth)
+    CKDpriv(&secret, &chain, 13 | BIP32_HARD);
+    CKDpriv(&secret, &chain, 0x252d3537 | BIP32_HARD);
+    CKDpriv(&secret, &chain, 0x8c7cac9e | BIP32_HARD);
+    CKDpriv(&secret, &chain, 0xa4faaac6 | BIP32_HARD);
+    CKDpriv(&secret, &chain, 0xb4a6f1f3 | BIP32_HARD);
+
+//    CKDpriv(&secret, &chain, 1 | BIP32_HARD);
+//    CKDpriv(&secret, &chain, 0);
+    
+    NSMutableData *privKey = [NSMutableData secureData];//secureDataWithCapacity:34];
+
+    [privKey appendBytes:&version length:1];
+    [privKey appendBytes:&secret length:sizeof(secret)];
+    [privKey appendBytes:"\x01" length:1]; // specifies compressed pubkey format
+    return [NSString base58checkWithData:privKey];
+}
+
 #pragma mark - serializations
 
 - (NSString *)serializedPrivateMasterFromSeed:(NSData *)seed
