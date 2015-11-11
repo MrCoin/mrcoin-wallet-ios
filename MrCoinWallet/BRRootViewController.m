@@ -86,6 +86,7 @@
     NSInteger nextPage;
     
     NSString* publicKey; // for MrCoin SDK
+    BOOL introFinished;
 }
 
 - (void)viewDidLoad
@@ -787,12 +788,11 @@
         return;
     }
     else if (sender == self.sendViewController) {
-        self.scrollView.scrollEnabled = YES;
-
         [(id)self.pageViewController setViewControllers:@[self.receiveViewController]
         direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
             //BUG: XXXX this doesn't get called after wiping a wallet and starting a new one without killing the app
             [manager performSelector:@selector(setPin) withObject:nil afterDelay:0.0];
+            self.scrollView.scrollEnabled = YES;
         }];
 
         return;
@@ -929,8 +929,6 @@ viewControllerAfterViewController:(UIViewController *)viewController
         else if([pageViewController.viewControllers lastObject] == self.transferViewController)  p = 2;
         currentPage = p;
     }
-    NSLog(@"%@",pageViewController);
-    NSLog(@"%@",pageViewController.viewControllers);
     return currentPage;
 }
 -(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers
@@ -950,10 +948,21 @@ viewControllerAfterViewController:(UIViewController *)viewController
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat p = scrollView.frame.size.width*((scrollView.contentOffset.x/scrollView.frame.size.width)-1);
-    CGFloat offset = (scrollView.frame.size.width*currentPage)+p;
-    
-    self.wallpaper.center = CGPointMake(self.wallpaper.frame.size.width/2 - PARALAX_RATIO*offset, self.wallpaper.center.y);
+    if(self.scrollView.scrollEnabled){
+        CGFloat p = scrollView.frame.size.width*((scrollView.contentOffset.x/scrollView.frame.size.width)-1);
+        CGFloat offset = (scrollView.frame.size.width*(currentPage))+p;
+        self.wallpaper.center = CGPointMake(self.wallpaper.frame.size.width/2 - PARALAX_RATIO*offset, self.wallpaper.center.y);
+    }else{
+        CGFloat p = scrollView.frame.size.width*((scrollView.contentOffset.x/scrollView.frame.size.width)-1);
+        NSInteger page = currentPage;
+        if(p < 0){
+            page++;
+        }else if(p > 0){
+            page--;
+        }
+        CGFloat offset = (scrollView.frame.size.width*page)+p;
+        self.wallpaper.center = CGPointMake(self.wallpaper.frame.size.width/2 - PARALAX_RATIO*offset, self.wallpaper.center.y);
+    }
 }
 
 #pragma mark - UIAlertViewDelegate

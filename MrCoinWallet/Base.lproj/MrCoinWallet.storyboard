@@ -21,11 +21,8 @@
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Medium</string>
             <string>HelveticaNeue-Bold</string>
-            <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
@@ -1652,7 +1649,7 @@
                                 <rect key="frame" x="32" y="209" width="257" height="151"/>
                                 <animations/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOa-zm-TDG">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOa-zm-TDG" customClass="MRCButton">
                                 <rect key="frame" x="70" y="210" width="180" height="44"/>
                                 <animations/>
                                 <constraints>
@@ -1660,31 +1657,32 @@
                                     <constraint firstAttribute="height" constant="44" id="TyG-sW-nGi"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="290" id="oTJ-De-Lxf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="new wallet" backgroundImage="button-bg-white">
-                                    <color key="titleShadowColor" white="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" title="new wallet"/>
                                 <state key="disabled" backgroundImage="button-bg-disabled"/>
-                                <state key="highlighted" backgroundImage="button-bg-white-pressed">
-                                    <color key="titleColor" red="0.99215692281723022" green="0.54117649793624878" blue="0.16862745583057404" alpha="1" colorSpace="deviceRGB"/>
-                                    <color key="titleShadowColor" white="1" alpha="0.14999999999999999" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="highlighted" backgroundImage="button-bg-white-pressed"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="stroke" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="fill" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="gE8-de-XET" kind="show" id="hkn-cW-R9i"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4w7-k8-9wY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4w7-k8-9wY" customClass="MRCButton">
                                 <rect key="frame" x="70" y="314" width="180" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="SS8-xT-kei"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="recover wallet" backgroundImage="button-bg-white">
+                                <state key="normal" title="recover wallet">
                                     <color key="titleShadowColor" white="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="disabled" backgroundImage="button-bg-disabled"/>
@@ -1692,6 +1690,10 @@
                                     <color key="titleColor" red="0.99215692280000001" green="0.5411764979" blue="0.16862745579999999" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="1" alpha="0.14999999999999999" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="stroke" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="fill" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="meW-Ti-6kp" kind="show" id="DFn-J2-DKb"/>
                                 </connections>
@@ -1719,8 +1721,8 @@
                             <rect key="frame" x="111" y="13" width="98" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="breadwallet-white" translatesAutoresizingMaskIntoConstraints="NO" id="VBZ-P3-o77">
-                                    <rect key="frame" x="0.0" y="0.0" width="98" height="18"/>
+                                <imageView userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" image="breadwallet-white" translatesAutoresizingMaskIntoConstraints="NO" id="VBZ-P3-o77">
+                                    <rect key="frame" x="0.0" y="-21" width="98" height="60"/>
                                     <animations/>
                                 </imageView>
                             </subviews>
@@ -2571,25 +2573,29 @@ copyright © Aaron Voisine  this app is open souce</string>
                                 <color key="shadowColor" white="0.0" alpha="0.14999999999999999" colorSpace="calibratedWhite"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4M-yq-26d">
-                                <rect key="frame" x="55" y="362" width="210" height="44"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4M-yq-26d" customClass="MRCButton">
+                                <rect key="frame" x="54" y="362" width="212" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="8HY-tn-QvG"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="290" id="oGG-eH-dqf"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="zSs-Mz-iZo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="generate recovery phrase" backgroundImage="button-bg-white">
+                                <state key="normal" title="generate recovery phrase">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted" backgroundImage="button-bg-white-pressed">
                                     <color key="titleColor" red="0.99215692280000001" green="0.5411764979" blue="0.16862745579999999" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="1" alpha="0.14999999999999999" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="stroke" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="fill" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                             </button>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="rLQ-Ub-gHT">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -2665,12 +2671,12 @@ Other devices may be infected.
                     </view>
                     <navigationItem key="navigationItem" id="xhy-mj-rkK">
                         <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="2TI-4e-OIp">
+                        <view key="titleView" contentMode="center" id="2TI-4e-OIp">
                             <rect key="frame" x="111" y="13" width="98" height="18"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="breadwallet-white" translatesAutoresizingMaskIntoConstraints="NO" id="8lh-UZ-tbs">
-                                    <rect key="frame" x="0.0" y="0.0" width="98" height="18"/>
+                                <imageView userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" image="breadwallet-white" translatesAutoresizingMaskIntoConstraints="NO" id="8lh-UZ-tbs">
+                                    <rect key="frame" x="0.0" y="-21" width="98" height="60"/>
                                     <animations/>
                                 </imageView>
                             </subviews>
@@ -2956,7 +2962,6 @@ Other devices may be infected.
         <image name="burger" width="20" height="16"/>
         <image name="button-bg-blue-pressed" width="10" height="44"/>
         <image name="button-bg-disabled" width="10" height="11"/>
-        <image name="button-bg-white" width="11" height="11"/>
         <image name="button-bg-white-pressed" width="11" height="10"/>
         <image name="cameraguide" width="234" height="234"/>
         <image name="cameraguide-blue-small" width="20" height="20"/>
