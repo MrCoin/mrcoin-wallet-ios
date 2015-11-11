@@ -27,7 +27,7 @@
 "D1b-HB-lKH.text" = "start/recover another wallet";
 
 /* Class = "UILabel"; text = "exchange rate data provided by\nbitpay.com/rates"; ObjectID = "D4H-hd-LsX"; */
-"D4H-hd-LsX.text" = "exchange rate data provided by\nbitpay.com/rates";
+"D4H-hd-LsX.text" = "exchange rate data provided by\nbitpay.com/rates and mrcoin.eu";
 
 /* Class = "UITextField"; placeholder = "ƀ 0.00"; ObjectID = "DLS-lz-uxJ"; */
 "DLS-lz-uxJ.placeholder" = "ƀ 0.00";

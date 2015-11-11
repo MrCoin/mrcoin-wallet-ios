@@ -249,20 +249,18 @@
             
 
         case 1:
-            if([[MrCoin settings] userConfiguration] == MRCUserConfigured){
-                switch (indexPath.row) {
-                    case 0:
-                    {
-                        cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
-                        cell.detailTextLabel.text = manager.localCurrencyCode;
-                        break;
-                    }
-                    case 1:
-                    {
-                        cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
-                        cell.textLabel.text = NSLocalizedString(@"quick transfer", nil);
-                        break;
-                    }
+            switch (indexPath.row) {
+                case 0:
+                {
+                    cell = [tableView dequeueReusableCellWithIdentifier:selectorIdent];
+                    cell.detailTextLabel.text = manager.localCurrencyCode;
+                    break;
+                }
+                case 1:
+                {
+                    cell = [tableView dequeueReusableCellWithIdentifier:disclosureIdent];
+                    cell.textLabel.text = NSLocalizedString(@"quick transfer", nil);
+                    break;
                 }
             }
             break;
@@ -496,8 +494,12 @@
                     [self showCurrencySelector];
                     break;
                 case 1:
-                    [self.navigationController pushViewController:[MrCoin viewController:@"Settings"] animated:YES];
+                {
+                    UIViewController *vc = [MrCoin viewController:@"Settings"];
+                    vc.title = NSLocalizedString(@"quick transfer", NULL);
+                    [self.navigationController pushViewController:vc animated:YES];
                     break;
+                }
             }
             break;
             
