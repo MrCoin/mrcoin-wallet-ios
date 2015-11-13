@@ -398,6 +398,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.view.superview.hidden = NO;
     [super viewWillAppear:animated];
 
     self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"burger"];
@@ -484,6 +485,10 @@
     [self hideTips];
 
     [super viewWillDisappear:animated];
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -1078,6 +1083,7 @@ viewControllerAfterViewController:(UIViewController *)viewController
             self.pageViewController.view.center = CGPointMake(self.pageViewController.view.center.x,
                                                               containerView.frame.size.height/4.0);
         } completion:^(BOOL finished) {
+            [self.burger removeFromSuperview];
             self.pageViewController.view.center = CGPointMake(self.pageViewController.view.center.x,
                                                               containerView.frame.size.height/2.0);
             
@@ -1111,7 +1117,7 @@ viewControllerAfterViewController:(UIViewController *)viewController
         item.titleView = nil;
         item.rightBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"none"];
-        self.burger.hidden = NO;
+        [containerView addSubview:self.burger];
         [containerView layoutIfNeeded];
         self.burger.center = CGPointMake(26.0, 40.0);
         [self.burger setX:NO completion:nil];
@@ -1131,7 +1137,7 @@ viewControllerAfterViewController:(UIViewController *)viewController
             item.title = self.navigationItem.title;
             item.leftBarButtonItem.image = [UIImage imageNamed:@"x"];
             [from.view removeFromSuperview];
-            self.burger.hidden = YES;
+            [self.burger removeFromSuperview];
             self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"burger"];
             [transitionContext completeTransition:YES];
             if (self.reachability.currentReachabilityStatus == NotReachable) [self showErrorBar];
@@ -1171,8 +1177,6 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
     [set setFormBackgroundColor:self.view.backgroundColor];
     [set setFormBackgroundImage:[UIImage imageNamed:@"wallpaper-default"]];
     [set setResellerKey:@"9159f1f1-ef8b-4a8e-bd71-d95f9cfc15a8"];
-
-    [MrCoin checkUserDetails];
 }
 - (void) quickTransferDidSetup
 {
@@ -1184,19 +1188,11 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
     }else{
         [set setSourceCurrency:@"EUR"];
     }
-    [set saveSettings];
+    [[MrCoin settings] saveSettings];
 }
 - (void) quickTransferReset
 {
-    //ha a wallet currencyje HUF, akkor automatikusan azt allitsa be elso setupnal quicktransfer currencynek is
-    MRCSettings *set = [MrCoin settings];
-    BRWalletManager *manager = [BRWalletManager sharedInstance];
-    if([manager.localCurrencyCode isEqualToString:@"HUF"]){
-        [set setSourceCurrency:@"HUF"];
-    }else{
-        [set setSourceCurrency:@"EUR"];
-    }
-    [set saveSettings];
+    [self quickTransferDidSetup];
 }
 - (NSString*) requestPublicKey
 {
@@ -1234,10 +1230,47 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
         composeController.subject = subject;
         [composeController setToRecipients:@[to]];
         composeController.mailComposeDelegate = self;
-        [self.navigationController presentViewController:composeController animated:YES completion:nil];
-        composeController.view.backgroundColor
-        = [UIColor colorWithPatternImage:[UIImage imageNamed:@"wallpaper-default"]];
+        composeController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"wallpaper-default"]];
+        
+        NSString *qt = [[MrCoin settings] quickTransferCode];
+        NSString *b;
+        if(qt){
+            b = @"My public key: %@\nPhone number: %@\nEmail address: %@\nQuicktransfer code: %@\n";
+        }else{
+            b = @"My public key: %@\nPhone number: %@\nEmail address: %@\n";
+        }
+        __block NSString *m;
+        [[MrCoin api] getPhone:^(id result) {
+            NSString *phone = result;
+            [[MrCoin api] getEmail:^(id result) {
+                if(qt){
+                    m = [NSString stringWithFormat:b,[self requestPublicKey],phone,result,qt];
+                }else{
+                    m = [NSString stringWithFormat:b,[self requestPublicKey],phone,result];
+                }
+                [self composeMail:composeController body:m];
+            } error:^(NSArray *errors, MRCAPIErrorType errorType) {
+                if(qt){
+                    m = [NSString stringWithFormat:b,[self requestPublicKey],phone,@"",qt];
+                }else{
+                    m = [NSString stringWithFormat:b,[self requestPublicKey],phone,@""];
+                }
+                [self composeMail:composeController body:m];
+            }];
+        } error:^(NSArray *errors, MRCAPIErrorType errorType) {
+            if(qt){
+                m = [NSString stringWithFormat:b,[self requestPublicKey],@"",@"",qt];
+            }else{
+                m = [NSString stringWithFormat:b,[self requestPublicKey],@"",@""];
+            }
+            [self composeMail:composeController body:m];
+        }];
     }
+}
+- (void)composeMail:(MFMailComposeViewController*)composeController body:(NSString*)body
+{
+    [composeController setMessageBody:body isHTML:NO];
+    [self.navigationController presentViewController:composeController animated:YES completion:nil];
 }
 - (void)setupViewController:(UIViewController *)viewController
 {
