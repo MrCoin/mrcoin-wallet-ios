@@ -1176,7 +1176,7 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
     MRCSettings *set = [mr settings];
     [set setFormBackgroundColor:self.view.backgroundColor];
     [set setFormBackgroundImage:[UIImage imageNamed:@"wallpaper-default"]];
-    [set setResellerKey:@"9159f1f1-ef8b-4a8e-bd71-d95f9cfc15a8"];
+    [set setResellerID:@"9159f1f1-ef8b-4a8e-bd71-d95f9cfc15a8"];
 }
 - (void) quickTransferDidSetup
 {
