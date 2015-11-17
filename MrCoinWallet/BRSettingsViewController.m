@@ -31,6 +31,8 @@
 #include <asl.h>
 
 #import <MrCoinFramework/MrCoinFramework.h>
+#import "BRRootViewController.h"
+#import "BRTransferViewController.h"
 
 @interface BRSettingsViewController ()
 
@@ -495,7 +497,23 @@
                     break;
                 case 1:
                 {
-                    UIViewController *vc = [MrCoin viewController:@"Settings"];
+                    MRCSettingsViewController *vc = (MRCSettingsViewController*)[MrCoin viewController:@"Settings"];
+                    vc.onSetupComplete = ^{
+                        [self dismissViewControllerAnimated:YES completion:^{
+                            UINavigationController *nc = (UINavigationController*)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
+                            BRRootViewController *vc = (BRRootViewController*)[nc topViewController];
+                            BRTransferViewController *tvc = vc.transferViewController;
+                            [(id)vc.pageViewController setViewControllers:@[tvc]
+                                                                direction:UIPageViewControllerNavigationDirectionForward
+                                                                 animated:YES
+                                                               completion:^(BOOL finished) {
+                                                                   //                                                                     [tvc showTip:self];
+                                                               }];
+                        }];
+                    };
+                    vc.onSetupCancel = ^{
+                    };
+
                     vc.title = NSLocalizedString(@"quick transfer", NULL);
                     [self.navigationController pushViewController:vc animated:YES];
                     break;

@@ -23,6 +23,7 @@
 
 @implementation BRTransferViewController
 {
+    BOOL _showTransferTipOnly;
     NSString *publicKey;
     UITapGestureRecognizer *r1, *r2, *r3;
     UITapGestureRecognizer *r4, *r5, *r6;
@@ -59,16 +60,21 @@
     self.transferViewController.titleView.gestureRecognizers = @[r6];
 }
 
+- (void) showTip:(id)sender
+{
+    _showTransferTipOnly = YES;
+    [self tip:sender];
+}
+
 - (IBAction)tip:(id)sender
 {
     if ([self nextTip]) return;
-    
     if (! [sender isKindOfClass:[UIGestureRecognizer class]] ||
         ([sender view] != self.emptyViewController.mrCoin && ! [[sender view] isKindOfClass:[UILabel class]])) {
         if (! [sender isKindOfClass:[UIViewController class]]) return;
         self.showTips = YES;
     }
-
+    
     CGPoint p = [self.emptyViewController.mrCoin.superview convertPoint:self.emptyViewController.mrCoin.frame.origin toView:self.view];
     p.x += self.emptyViewController.mrCoin.frame.size.width*0.5f;
     p.x -= 15.0f;
@@ -106,7 +112,7 @@
 }
 - (BOOL)nextTip
 {
-    if (self.tipView.alpha < 0.5) return [(id)self.parentViewController.parentViewController nextTip];
+    if (!_showTransferTipOnly && self.tipView.alpha < 0.5) return [(id)self.parentViewController.parentViewController nextTip];
     
     BRBubbleView *tipView = self.tipView;
     
@@ -125,6 +131,7 @@
 //    else
         if (self.showTips) { // && [tipView.text hasPrefix:ADDRESS_TIP]
         self.showTips = NO;
+        _showTransferTipOnly = NO;
         [(id)self.parentViewController.parentViewController tip:self];
     }
     

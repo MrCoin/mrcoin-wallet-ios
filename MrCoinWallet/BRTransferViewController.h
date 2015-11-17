@@ -11,4 +11,7 @@
 @interface BRTransferViewController : MrCoinViewController <UINavigationControllerDelegate,
 UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
+- (IBAction)tip:(id)sender;
+- (void) showTip:(id)sender;
+
 @end
