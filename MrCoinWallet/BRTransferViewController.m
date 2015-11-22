@@ -30,11 +30,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    [[MrCoin api] authenticate:^(id result) {
-//        NSLog(@"result %@",result);
-//    } error:nil];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,9 +57,16 @@
 
 - (void) showTip:(id)sender
 {
-    _showTransferTipOnly = YES;
-    [self tip:sender];
+    CGPoint p = [self.transferViewController.mrCoin.superview convertPoint:self.transferViewController.mrCoin.frame.origin toView:self.view];
+    p.x += self.transferViewController.mrCoin.frame.size.width*0.5f;
+    self.tipView = [BRBubbleView viewWithText:QUICKTRANSFER_TIP
+                                     tipPoint:p
+                                 tipDirection:BRBubbleTipDirectionDown];
+    self.tipView.backgroundColor = [UIColor orangeColor];
+    self.tipView.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+    [self.view addSubview:[self.tipView popIn]];
 }
+
 
 - (IBAction)tip:(id)sender
 {
@@ -100,9 +102,6 @@
     
     CGPoint p = [self.transferViewController.mrCoin.superview convertPoint:self.transferViewController.mrCoin.frame.origin toView:self.view];
     p.x += self.transferViewController.mrCoin.frame.size.width*0.5f;
-//    p.x -= 15.0f;
-//    p.y += 10.0f;
-    
     self.tipView = [BRBubbleView viewWithText:QUICKTRANSFER_TIP
                                      tipPoint:p
                                  tipDirection:BRBubbleTipDirectionDown];

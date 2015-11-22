@@ -1189,6 +1189,8 @@ presentingController:(UIViewController *)presenting sourceController:(UIViewCont
         [set setSourceCurrency:@"EUR"];
     }
     [[MrCoin settings] saveSettings];
+    
+    [self.transferViewController showTip:self];
 }
 - (void) quickTransferReset
 {
