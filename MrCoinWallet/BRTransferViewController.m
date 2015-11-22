@@ -57,6 +57,7 @@
 
 - (void) showTip:(id)sender
 {
+    if(!self.transferViewController) return;
     CGPoint p = [self.transferViewController.mrCoin.superview convertPoint:self.transferViewController.mrCoin.frame.origin toView:self.view];
     p.x += self.transferViewController.mrCoin.frame.size.width*0.5f;
     self.tipView = [BRBubbleView viewWithText:QUICKTRANSFER_TIP
