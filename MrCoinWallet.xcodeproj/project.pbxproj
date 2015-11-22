@@ -344,7 +344,7 @@
 		75CE50B51B5216F100DBC18C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BreadWalletTests/Info.plist; sourceTree = SOURCE_ROOT; };
 		75CE50BC1B525CFD00DBC18C /* TodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TodayExtension.entitlements; sourceTree = "<group>"; };
 		75CE50BD1B525D1B00DBC18C /* breadwallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = breadwallet.entitlements; sourceTree = "<group>"; };
-		75D5F3BE191EC270004AB296 /* Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		75D5F3BE191EC270004AB296 /* MrCoin Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MrCoin Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D5F3C9191EC270004AB296 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75D5F3CD191EC270004AB296 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75D5F3CF191EC270004AB296 /* MrCoinWallet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MrCoinWallet-Prefix.pch"; sourceTree = "<group>"; };
@@ -606,7 +606,7 @@
 		75D5F3BF191EC270004AB296 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				75D5F3BE191EC270004AB296 /* Wallet.app */,
+				75D5F3BE191EC270004AB296 /* MrCoin Wallet.app */,
 				75D5F3E5191EC270004AB296 /* MrCoinWalletTests.xctest */,
 				BAE12BE51B2DEE7F00895CC5 /* TodayExtension.appex */,
 			);
@@ -735,7 +735,7 @@
 			);
 			name = Wallet;
 			productName = BreadWallet;
-			productReference = 75D5F3BE191EC270004AB296 /* Wallet.app */;
+			productReference = 75D5F3BE191EC270004AB296 /* MrCoin Wallet.app */;
 			productType = "com.apple.product-type.application";
 		};
 		75D5F3E4191EC270004AB296 /* MrCoinWalletTests */ = {
@@ -1258,7 +1258,7 @@
 				INFOPLIST_FILE = MrCoinWallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mrcoin.wallet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "MrCoin Wallet";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -1283,7 +1283,7 @@
 				INFOPLIST_FILE = MrCoinWallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mrcoin.wallet;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "MrCoin Wallet";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
